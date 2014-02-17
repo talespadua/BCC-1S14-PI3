@@ -10,13 +10,13 @@ bool inicializar()
     }
 
    	al_init_font_addon();
- 
+
     if (!al_init_ttf_addon())
     {
         fprintf(stderr, "Falha ao inicializar add-on allegro_ttf.\n");
         return false;
     }
- 
+
     if (!al_init_primitives_addon())
     {
         fprintf(stderr, "Falha ao inicializar add-on allegro_primitives.\n");
@@ -28,12 +28,12 @@ bool inicializar()
         fprintf(stderr, "Falha ao inicializar add-on allegro_image.\n");
         return false;
     }
- 
+
     if (!al_install_keyboard())
     {
         fprintf(stderr, "Falha ao inicializar o teclado.\n");
         return false;
-    } 
+    }
 
     janela = al_create_display(800, 600);
 
@@ -42,9 +42,9 @@ bool inicializar()
         fprintf(stderr, "Falha ao criar janela.\n");
         return false;
     }
- 
+
     al_set_window_title(janela, "Allegro");
- 
+
     fila_eventos = al_create_event_queue();
 
     if (!fila_eventos)
@@ -67,9 +67,8 @@ bool inicializar()
     al_register_event_source(fila_eventos  , al_get_joystick_event_source());
     */
 
-
     //INICIALIZAR VARIAVEIS
-    teste = al_load_bitmap("img/pika.png");
+    teste = al_load_bitmap("../img/pika.png");
 
     if (!teste)
     {
