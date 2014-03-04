@@ -1,3 +1,6 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include <opencv/highgui.h>
 
 #include <allegro5/allegro.h>
@@ -20,3 +23,5 @@ void camera_copia(camera *cam, unsigned char ***matriz, ALLEGRO_BITMAP *bitmap);
 
 unsigned char ***camera_aloca_matriz(camera *cam);
 void camera_libera_matriz(camera *cam, unsigned char ***matriz);
+
+#endif
