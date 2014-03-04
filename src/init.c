@@ -43,7 +43,7 @@ bool inicializar(camera *cam)
         return false;
     }
 
-    game.janela = al_create_display(cam->largura, cam->altura);
+    game.janela = al_create_display(2*cam->largura, cam->altura);
 
     if (!game.janela)
     {

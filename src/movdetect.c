@@ -9,13 +9,17 @@ void movdetect()
 	inicializar(cam);
 	printf("Inicializou\n");
 	al_start_timer(game.timer);
-	int sair = false;
+	int i, j;
+	bool sair = false;
 	bool desenhar = false;
-	unsigned char ***matriz = camera_aloca_matriz(cam);
+
+	unsigned char ***resultado = camera_aloca_matriz(cam);
 
 	ALLEGRO_BITMAP *buffer = al_get_backbuffer(game.janela);
 
-  	ALLEGRO_BITMAP *imagem = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
+  	ALLEGRO_BITMAP *esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
+  	ALLEGRO_BITMAP *direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
+
 
 	//GAME LOOP
 	while(!sair)
@@ -41,23 +45,34 @@ void movdetect()
       		desenhar = false;
 			 
       		camera_atualiza(cam);
-	    	 
-      		camera_copia(cam, cam->quadro, imagem);
+	    	
+	    	for(i = 0; i < cam->altura; i++)
+	    	{
+	    		for(j = 0; j < cam->largura; j++)
+	    		{
+	    			if(cam->quadro[i][j][0] > 150)
+	    			{
+	    				resultado[i][j][0] = 255;
+	    			}
+	    			else
+	    			{
+	    				resultado[i][j][0] = 0;
+	    			}
+	    		}
+	    	}
+      		camera_copia(cam, cam->quadro, esquerda);
+      		camera_copia(cam, resultado, direita);
       		 
-      		//al_draw_bitmap(imagem,0,0,0); // nao rola nao sei pq
-
-            al_flip_display();
+      		al_flip_display();
     	}
 	}
 
-	//ALLEGRO_CONFIG* cfg = al_load_config_file("config/allegro.cfg");
-	//printf("%s\n", al_get_config_value(cfg, "weapon 0", "damage")); /* Prints: 443 */
-
-	//SAIR DO JOGO 
-	al_destroy_bitmap(imagem);
+	al_destroy_bitmap(esquerda);
+	al_destroy_bitmap(direita);
+	camera_libera_matriz(cam, resultado);
+	//camera_libera_matriz(cam, esquerda);
 	camera_finaliza(cam);
-	camera_libera_matriz(cam, matriz);
-
+	
 	al_unregister_event_source(game.fila_eventos, al_get_display_event_source(game.janela));
   	al_unregister_event_source(game.fila_eventos, al_get_timer_event_source(game.timer));
 
