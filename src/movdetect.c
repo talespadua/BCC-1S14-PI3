@@ -2,18 +2,38 @@
 #include "init.h"
 #include <stdio.h>
 
+void copiaMatriz(unsigned char ***matriz, camera *cam)
+{
+	int i, j;
+	for(i = 0; i < cam->altura; i++)
+	{
+		for(j = 0; j < cam->largura; j++)
+		{
+			matriz[i][j][0] = cam->quadro[i][j][0];
+			matriz[i][j][1] = cam->quadro[i][j][1];
+			matriz[i][j][2] = cam->quadro[i][j][2];
+		}
+	}
+}
+
 void movdetect()
 {
-	camera *cam = camera_inicializa(1);
+	camera *cam = camera_inicializa(0);
 	//INICIALIZAR ALLEGRO
 	inicializar(cam);
 	printf("Inicializou\n");
 	al_start_timer(game.timer);
-	int i, j;
+	int i, j, n = 0, pontos = 0;
 	bool sair = false;
 	bool desenhar = false;
+	int threshold = 60;
+
+	int r, g, b;
+	int r2, g2, b2;
 
 	unsigned char ***resultado = camera_aloca_matriz(cam);
+	unsigned char ***resultado2 = camera_aloca_matriz(cam);
+	unsigned char ***frameAnterior = camera_aloca_matriz(cam);
 
 	ALLEGRO_BITMAP *buffer = al_get_backbuffer(game.janela);
 
@@ -38,6 +58,12 @@ void movdetect()
    			default:
    				printf("evento desconhecido\n");
     	}
+
+    	if(n == 0)
+    	{
+    		copiaMatriz(frameAnterior, cam);
+    		n = 1;
+    	}
              
         if(desenhar && al_is_event_queue_empty(game.fila_eventos))
    		{
@@ -50,26 +76,61 @@ void movdetect()
 	    	{
 	    		for(j = 0; j < cam->largura; j++)
 	    		{
-	    			if(cam->quadro[i][j][0] > 150)
+	    			r = cam->quadro[i][j][0];
+	    			g = cam->quadro[i][j][1];
+	    			b = cam->quadro[i][j][2];
+
+	    			r -= frameAnterior[i][j][0];
+	    			g -= frameAnterior[i][j][1];
+	    			b -= frameAnterior[i][j][2];
+
+	    			r *= r;
+	    			g *= g;
+	    			b *= b;
+
+	    			r = r + g + b;
+	    			
+	    			if (r > (threshold * threshold)) {
+	    				resultado[i][j][0] = 0;
+	    				resultado[i][j][1] = 0;
+	    				resultado[i][j][2] = 255;
+	    			} else {	    				
+	    				resultado[i][j][0] = 0;
+	    				resultado[i][j][1] = 0;
+	    				resultado[i][j][2] = 0;
+	    			}
+
+	    			
+	    			if(((cam->quadro[i][j][0] > frameAnterior[i][j][0] + threshold) || (cam->quadro[i][j][0] < frameAnterior[i][j][0] - threshold)) ||
+	    				((cam->quadro[i][j][1] > frameAnterior[i][j][1] + threshold) || (cam->quadro[i][j][1] < frameAnterior[i][j][1] - threshold)) ||
+	    				((cam->quadro[i][j][2] > frameAnterior[i][j][2] + threshold) || (cam->quadro[i][j][2] < frameAnterior[i][j][2] - threshold)))
 	    			{
-	    				resultado[i][j][0] = 255;
+	    				resultado2[i][j][0] = 255;
+	    				resultado2[i][j][1] = 0;
+	    				resultado2[i][j][2] = 0;
 	    			}
 	    			else
 	    			{
-	    				resultado[i][j][0] = 0;
+	    				resultado2[i][j][0] = 0;
+	    				resultado2[i][j][1] = 0;
+	    				resultado2[i][j][2] = 0;
 	    			}
+	    			
 	    		}
 	    	}
-      		camera_copia(cam, cam->quadro, esquerda);
+      		camera_copia(cam, resultado2, esquerda);
       		camera_copia(cam, resultado, direita);
       		 
       		al_flip_display();
+      		copiaMatriz(frameAnterior, cam);
     	}
 	}
 
 	al_destroy_bitmap(esquerda);
 	al_destroy_bitmap(direita);
 	camera_libera_matriz(cam, resultado);
+	camera_libera_matriz(cam, resultado2);
+	camera_libera_matriz(cam, frameAnterior);
 	//camera_libera_matriz(cam, esquerda);
 	camera_finaliza(cam);
 	

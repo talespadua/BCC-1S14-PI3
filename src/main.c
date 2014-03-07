@@ -4,7 +4,6 @@
 
 void QuitGame()
 {
-   
     printf("Teste2\n");
 }
 
