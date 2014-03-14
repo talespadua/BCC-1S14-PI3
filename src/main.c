@@ -1,6 +1,7 @@
 #include "init.h"
 #include "camera.h"
 #include "movdetect.h"
+#include "flappybino.h"
 
 void QuitGame()
 {
@@ -9,6 +10,7 @@ void QuitGame()
 
 int main()
 {
-	movdetect();  	
+	start_flappy_bino();  
+	//movdetect();  	
   	return 0;
 }
