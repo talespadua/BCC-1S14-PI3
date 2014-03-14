@@ -29,10 +29,11 @@ void start_flappy_bino()
 	int i, j, n = 0, pontos = 0;
 	bool sair = false;
 	bool desenhar = false;
-	int threshold = 120;
+	int threshold = 150;
 
 	int r, g, b;
 	int y = 0, count = 0, flag = 0;
+	int y_anterior = 0, y_info = 600;
 
 	unsigned char ***resultado = camera_aloca_matriz(cam);
 	unsigned char ***frameAnterior = camera_aloca_matriz(cam);
@@ -110,11 +111,35 @@ void start_flappy_bino()
 	    		}
 	    	}
 	    	//*/
-
+	    	int minha_altura_max = cam->altura - 110;
 
       		camera_copia(cam, cam->quadro, esquerda);
       		camera_copia(cam, resultado, direita);
-	    	al_draw_circle(cam->largura + cam->largura/2, y/count, 100, cor, 1);
+
+      		if (count > 50000) {
+      			y /= count;      			
+      			if (y > y_anterior + 100) {      	
+      				y_info -= 70;
+	    			al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
+      			} else {
+      				y_info += 5;
+
+      				if (y_info < minha_altura_max) {
+	    				al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
+	    			} else {	    			
+	    				al_draw_circle(cam->largura + cam->largura/2, minha_altura_max, 100, cor, 10);
+	    			}
+      			}
+	    	} else {
+      			y_info += 5;
+
+      			if (y_info < minha_altura_max) {
+	    			al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
+	    		} else {	    			
+	    			al_draw_circle(cam->largura + cam->largura/2, minha_altura_max, 100, cor, 10);
+	    		}
+	    	}
+
 	    	//al_draw_circle(100, 100, 100, cor, 1);
       		 
       		if (flag == 0) {
@@ -124,7 +149,7 @@ void start_flappy_bino()
       			count = 0;
       		}
 
-
+      		y_anterior = y;
       		al_flip_display();
       		copiaMatriz(frameAnterior, cam);
     	}
