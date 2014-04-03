@@ -5,13 +5,10 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_primitives.h>
 
-void copiaMatriz(unsigned char ***matriz, camera *cam)
-{
+void flappy_copia_matriz(unsigned char ***matriz, camera *cam) {
 	int i, j;
-	for(i = 0; i < cam->altura; i++)
-	{
-		for(j = 0; j < cam->largura; j++)
-		{
+	for(i = 0; i < cam->altura; i++) {
+		for(j = 0; j < cam->largura; j++) {
 			matriz[i][j][0] = cam->quadro[i][j][0];
 			matriz[i][j][1] = cam->quadro[i][j][1];
 			matriz[i][j][2] = cam->quadro[i][j][2];
@@ -19,40 +16,38 @@ void copiaMatriz(unsigned char ***matriz, camera *cam)
 	}
 }
 
-void start_flappy_bino()
-{
+void draw_circle(int center_x, int center_y);
+
+void start_flappy_bino() {
+	ALLEGRO_BITMAP *buffer, *esquerda, *direita;
+	unsigned char ***resultado, ***frame_anterior;
+	bool sair = false, desenhar = false;
+	
+	int r, g, b, i, j, n = 0;
+	int threshold = 50, y = 0, count = 0, flag = 0, y_anterior = 0, y_info = 600;
+	
 	camera *cam = camera_inicializa(0);
+
 	//INICIALIZAR ALLEGRO
 	inicializar(cam);
 	printf("Inicializou\n");
 	al_start_timer(game.timer);
-	int i, j, n = 0, pontos = 0;
-	bool sair = false;
-	bool desenhar = false;
-	int threshold = 150;
+	
+	resultado = camera_aloca_matriz(cam);
+	frame_anterior = camera_aloca_matriz(cam);
 
-	int r, g, b;
-	int y = 0, count = 0, flag = 0;
-	int y_anterior = 0, y_info = 600;
+	buffer = al_get_backbuffer(game.janela);
 
-	unsigned char ***resultado = camera_aloca_matriz(cam);
-	unsigned char ***frameAnterior = camera_aloca_matriz(cam);
+  	esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
+  	direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
 
-	ALLEGRO_BITMAP *buffer = al_get_backbuffer(game.janela);
-
-  	ALLEGRO_BITMAP *esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
-  	ALLEGRO_BITMAP *direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
-
-  	ALLEGRO_COLOR cor = al_map_rgb_f(0, 0, 1);
-
+  	
 	//GAME LOOP
-	while(!sair)
-	{
+	while(!sair) {
 		//RECEBER EVENTOS
 		ALLEGRO_EVENT ev;
         al_wait_for_event(game.fila_eventos, &ev);
-   		switch(ev.type)
-   		{
+   		switch(ev.type) {
 			case ALLEGRO_EVENT_TIMER:
    				desenhar = true;
 			break;
@@ -63,19 +58,14 @@ void start_flappy_bino()
    				printf("evento desconhecido\n");
     	}
 
-    	if(n == 0)
-    	{
-    		copiaMatriz(frameAnterior, cam);
+    	if(n == 0) {
+    		flappy_copia_matriz(frame_anterior, cam);
     		n = 1;
     	}
              
-        if(desenhar && al_is_event_queue_empty(game.fila_eventos))
-   		{
-
-      		desenhar = false;
-			 
-      		camera_atualiza(cam);
-	    	
+        if(desenhar && al_is_event_queue_empty(game.fila_eventos)) {
+      		desenhar = false;			 
+      		camera_atualiza(cam);	    	
 	    	
 	    	///*
 	    	for(i = 0; i < cam->altura; i++)
@@ -86,9 +76,9 @@ void start_flappy_bino()
 	    			g = cam->quadro[i][j][1];
 	    			b = cam->quadro[i][j][2];
 
-	    			r -= frameAnterior[i][j][0];
-	    			g -= frameAnterior[i][j][1];
-	    			b -= frameAnterior[i][j][2];
+	    			r -= frame_anterior[i][j][0];
+	    			g -= frame_anterior[i][j][1];
+	    			b -= frame_anterior[i][j][2];
 
 	    			r *= r;
 	    			g *= g;
@@ -96,49 +86,48 @@ void start_flappy_bino()
 
 	    			r = r + g + b;
 	    			
-	    			if (r > (threshold * threshold)) {
-	    				y += i;
-	    				count++; 	    				
+	    			// Para cada pixel, calcula distancia euclidiana
+	    			if (r > (threshold * threshold)) {	
 	    				resultado[i][j][0] = 255;
 	    				resultado[i][j][1] = 255;
 	    				resultado[i][j][2] = 255;
+
+	    				// Contador para tirar uma média de movimento dos pixeis
+	    				y += i;
+	    				count++; 	    			
 	    			} else {	    				
 	    				resultado[i][j][0] = 0;
 	    				resultado[i][j][1] = 0;
 	    				resultado[i][j][2] = 0;
-	    			}
-	    			//FLAPPYBINO	    			
+	    			}		
 	    		}
 	    	}
 	    	//*/
-	    	int minha_altura_max = cam->altura - 110;
+	    	int minha_altura_max = cam->altura - 10;
 
       		camera_copia(cam, cam->quadro, esquerda);
       		camera_copia(cam, resultado, direita);
 
-      		if (count > 50000) {
-      			y /= count;      			
-      			if (y > y_anterior + 100) {      	
-      				y_info -= 70;
-	    			al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
-      			} else {
-      				y_info += 5;
-
-      				if (y_info < minha_altura_max) {
-	    				al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
-	    			} else {	    			
-	    				al_draw_circle(cam->largura + cam->largura/2, minha_altura_max, 100, cor, 10);
-	    			}
-      			}
-	    	} else {
+			// Tira a média do movimento
+      		y /= count;   
+      		
+      		// Bastante movimentação para cima
+      		if (count > 50000 && y > y_anterior + 100) {      
+      			// Faz o objeto subir	
+      			y_info -= cam->altura/20;
+      			draw_circle(cam->largura + cam->largura/2, y_info);
+      		} 
+      		// Pouca movimentação
+      		else {
+      			// O objeto decai
       			y_info += 5;
 
-      			if (y_info < minha_altura_max) {
-	    			al_draw_circle(cam->largura + cam->largura/2, y_info, 100, cor, 10);
+    			if (y_info < minha_altura_max) {
+     				draw_circle(cam->largura + cam->largura/2, y_info);
 	    		} else {	    			
-	    			al_draw_circle(cam->largura + cam->largura/2, minha_altura_max, 100, cor, 10);
+	    			draw_circle(cam->largura + cam->largura/2, minha_altura_max);
 	    		}
-	    	}
+      		}
 
 	    	//al_draw_circle(100, 100, 100, cor, 1);
       		 
@@ -151,14 +140,14 @@ void start_flappy_bino()
 
       		y_anterior = y;
       		al_flip_display();
-      		copiaMatriz(frameAnterior, cam);
+      		flappy_copia_matriz(frame_anterior, cam);
     	}
 	}
 
 	al_destroy_bitmap(esquerda);
 	al_destroy_bitmap(direita);
 	camera_libera_matriz(cam, resultado);
-	camera_libera_matriz(cam, frameAnterior);
+	camera_libera_matriz(cam, frame_anterior);
 	//camera_libera_matriz(cam, esquerda);
 	camera_finaliza(cam);
 	
@@ -174,4 +163,10 @@ void start_flappy_bino()
  	al_uninstall_system();
 
  	al_stop_timer(game.timer);
+}
+
+
+void draw_circle(int center_x, int center_y) {	
+	ALLEGRO_COLOR cor = al_map_rgb_f(0, 0, 1);
+	al_draw_circle(center_x, center_y, 10, cor, 1);
 }
