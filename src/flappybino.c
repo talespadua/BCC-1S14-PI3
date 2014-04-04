@@ -23,8 +23,8 @@ void start_flappy_bino() {
 	unsigned char ***resultado, ***frame_anterior;
 	bool sair = false, desenhar = false;
 	
-	int r, g, b, i, j, n = 0;
-	int threshold = 50, y = 0, count = 0, flag = 0, y_anterior = 0, y_info = 600;
+	int r, g, b, i, j, gscale, sobel, n = 0;
+	int threshold = 100, y = 0, count = 0, flag = 0, y_anterior = 0, y_info = 600;
 	
 	camera *cam = camera_inicializa(0);
 
@@ -68,41 +68,50 @@ void start_flappy_bino() {
       		camera_atualiza(cam);	    	
 	    	
 	    	///*
-	    	for(i = 0; i < cam->altura; i++)
-	    	{
-	    		for(j = 0; j < cam->largura; j++)
-	    		{
+	    	for(i = 0; i < cam->altura; i++) {
+	    		for(j = 0; j < cam->largura; j++) {
 	    			r = cam->quadro[i][j][0];
 	    			g = cam->quadro[i][j][1];
 	    			b = cam->quadro[i][j][2];
 
-	    			r -= frame_anterior[i][j][0];
-	    			g -= frame_anterior[i][j][1];
-	    			b -= frame_anterior[i][j][2];
-
-	    			r *= r;
-	    			g *= g;
-	    			b *= b;
-
-	    			r = r + g + b;
-	    			
-	    			// Para cada pixel, calcula distancia euclidiana
-	    			if (r > (threshold * threshold)) {	
-	    				resultado[i][j][0] = 255;
-	    				resultado[i][j][1] = 255;
-	    				resultado[i][j][2] = 255;
-
-	    				// Contador para tirar uma média de movimento dos pixeis
-	    				y += i;
-	    				count++; 	    			
-	    			} else {	    				
-	    				resultado[i][j][0] = 0;
-	    				resultado[i][j][1] = 0;
-	    				resultado[i][j][2] = 0;
-	    			}		
+	    			gscale = (r + g + b) / 3;
+	    			resultado[i][j][0] = gscale;
+	    			resultado[i][j][1] = gscale;
+	    			resultado[i][j][2] = gscale;
 	    		}
 	    	}
 	    	//*/
+
+	    	for(i = 0; i < cam->altura; i++) {
+	    		for(j = 0; j < cam->largura; j++) {
+					if (i == 0 || i == cam->altura-1 || j == 0 || j == cam->largura - 1) {
+	    				continue;
+	    			}
+
+	    			int r1, r2, r3;
+	    			int g1, g2, g3;
+	    			int b1, b2, b3;
+
+	    			r1 = resultado[i-1][j-1][0];
+	    			r2 = resultado[i-1][j+0][0];
+	    			r3 = resultado[i-1][j+1][0];
+
+	    			g1 = resultado[i+0][j-1][0];
+	    			g2 = resultado[i+0][j+0][0];
+	    			g3 = resultado[i+0][j+1][0];
+
+	    			b1 = resultado[i+1][j-1][2];
+	    			b2 = resultado[i+1][j+0][2];
+	    			b3 = resultado[i+1][j+1][2];
+
+	    			sobel = (-r1 -r2 -r2 -r3 +b1 +b2 +b2 +b3);
+	    		}
+	    	}
+
+	    			// +r1 2*g1 +b1
+	    			// 0 0 0
+	    			// -r3 -2*g3 -b3
+
 	    	int minha_altura_max = cam->altura - 10;
 
       		camera_copia(cam, cam->quadro, esquerda);
