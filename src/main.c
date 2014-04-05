@@ -2,6 +2,7 @@
 #include "camera.h"
 #include "movdetect.h"
 #include "flappybino.h"
+#include "sobel.h"
 
 void QuitGame()
 {
@@ -10,7 +11,8 @@ void QuitGame()
 
 int main()
 {
-	start_flappy_bino();  
-	//movdetect();  	
+	//start_flappy_bino();  
+	//movdetect();  		
+	sobel();
   	return 0;
 }

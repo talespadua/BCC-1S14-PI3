@@ -12,7 +12,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <stdbool.h> 
+#include <stdbool.h>
+#include "camera.h"
+#include "func.h"
 
 #define ALTURA  800
 #define LARGURA 600

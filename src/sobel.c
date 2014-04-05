@@ -2,24 +2,20 @@
 #include "init.h"
 #include <stdio.h>
 
-void movdetect()
+void sobel()
 {
 	camera *cam = camera_inicializa(0);
 	//INICIALIZAR ALLEGRO
 	inicializar(cam);
 	printf("Inicializou\n");
 	al_start_timer(game.timer);
-	int i, j, n = 0, pontos = 0;
+	int i, j, n = 0, pontos = 0, somaJ = 0, somaI = 0;
 	bool sair = false;
 	bool desenhar = false;
-	int threshold = 60;
-
-	int r, g, b;
-	int r2, g2, b2;
+	int threshold = 0;
 
 	unsigned char ***resultado = camera_aloca_matriz(cam);
-	unsigned char ***resultado2 = camera_aloca_matriz(cam);
-	unsigned char ***frameAnterior = camera_aloca_matriz(cam);
+	unsigned char ***temp = camera_aloca_matriz(cam);
 
 	ALLEGRO_BITMAP *buffer = al_get_backbuffer(game.janela);
 
@@ -45,62 +41,64 @@ void movdetect()
    				printf("evento desconhecido\n");
     	}
 
-    	if(n == 0)
-    	{
-    		copiaMatriz(frameAnterior, cam);
-    		n = 1;
-    	}
-             
-        if(desenhar && al_is_event_queue_empty(game.fila_eventos))
+    	if(desenhar && al_is_event_queue_empty(game.fila_eventos))
    		{
 
       		desenhar = false;
 			 
       		camera_atualiza(cam);
 	    	
-	    	for(i = 0; i < cam->altura; i++)
+	    	toGrayScale(resultado, cam);
+
+	    	for(i = 1; i < cam->altura-1; i++)
 	    	{
-	    		for(j = 0; j < cam->largura; j++)
+	    		for(j = 1; j < cam->largura-1; j++)
 	    		{
-	    			r = cam->quadro[i][j][0];
-	    			g = cam->quadro[i][j][1];
-	    			b = cam->quadro[i][j][2];
+	    			somaJ = ((-1*resultado[i-1][j-1][0]) +
+							(resultado[i-1][j+1][0]) +
+							(-2*resultado[i][j-1][0]) +
+							(2*resultado[i][j+1][0]) +
+							(-1*resultado[i+1][j-1][0]) +
+							(resultado[i+1][j+1][0]));
 
-	    			r -= frameAnterior[i][j][0];
-	    			g -= frameAnterior[i][j][1];
-	    			b -= frameAnterior[i][j][2];
+					somaI = ((resultado[i-1][j-1][0])+
+							(-1*resultado[i+1][j-1][0]) +
+							(2*resultado[i-1][j][0]) +
+							(-2*resultado[i+1][j][0]) + 
+							(resultado[i-1][j+1][0]) + 
+							(-1*resultado[i+1][j+1][0]));
 
-	    			r *= r;
-	    			g *= g;
-	    			b *= b;
+					if(somaJ < 0)
+						somaJ = -somaJ;
 
-	    			r = r + g + b;
-	    			
-	    			if (r > (threshold * threshold)) {
-	    				resultado[i][j][0] = 255;
-	    				resultado[i][j][1] = 255;
-	    				resultado[i][j][2] = 255;
-	    			} else {	    				
-	    				resultado[i][j][0] = 0;
-	    				resultado[i][j][1] = 0;
-	    				resultado[i][j][2] = 0;
-	    			}	    			
+					if(somaI < 0)
+						somaI = -somaI;
+
+					if(somaI < threshold){
+						somaI = 0;
+					}
+
+					if(somaJ < threshold){
+						somaJ = 0;
+					}
+
+					temp[i][j][0] = somaJ+somaI;
+					temp[i][j][1] = somaJ+somaI;
+					temp[i][j][2] = somaJ+somaI;
 	    		}
 	    	}
 
-      		camera_copia(cam, frameAnterior, esquerda);
-      		camera_copia(cam, resultado, direita);
+	    	//resultado = temp;
+      		camera_copia(cam, cam->quadro, esquerda);
+      		camera_copia(cam, temp, direita);
       		 
       		al_flip_display();
-      		copiaMatriz(frameAnterior, cam);
     	}
 	}
 
-	al_destroy_bitmap(esquerda);
 	al_destroy_bitmap(direita);
 	camera_libera_matriz(cam, resultado);
-	camera_libera_matriz(cam, resultado2);
-	camera_libera_matriz(cam, frameAnterior);
+	camera_libera_matriz(cam, temp);
 	//camera_libera_matriz(cam, esquerda);
 	camera_finaliza(cam);
 	

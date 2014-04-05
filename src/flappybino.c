@@ -41,8 +41,7 @@ void start_flappy_bino() {
   	esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
   	direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
 
-  	
-	//GAME LOOP
+  	//GAME LOOP
 	while(!sair) {
 		//RECEBER EVENTOS
 		ALLEGRO_EVENT ev;
@@ -80,7 +79,6 @@ void start_flappy_bino() {
 	    			resultado[i][j][2] = gscale;
 	    		}
 	    	}
-	    	//*/
 
 	    	for(i = 0; i < cam->altura; i++) {
 	    		for(j = 0; j < cam->largura; j++) {

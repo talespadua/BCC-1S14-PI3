@@ -1,5 +1,4 @@
 #include "init.h"
-#include "camera.h"
 
 void erro(char *mensagem) {
     fputs(mensagem, stderr);
