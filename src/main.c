@@ -13,6 +13,6 @@ int main()
 {
 	//start_flappy_bino();  
 	//movdetect();  		
-	sobel();
+	sobel_main();
   	return 0;
 }

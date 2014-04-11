@@ -6,6 +6,6 @@
 //void copiaMatriz(unsigned char ***matriz, camera *cam);
 //void toGrayScale(unsigned char ***matriz, camera *cam);
 
-void sobel();
+void sobel_main();
 
 #endif

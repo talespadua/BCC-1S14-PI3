@@ -15,17 +15,117 @@ void toGrayScale(unsigned char ***matriz, camera *cam){
 	}
 }
 
-void copiaMatriz(unsigned char ***matriz, camera *cam)
+void copiaMatriz(unsigned char ***matriz, unsigned char ***alvo, camera *cam)
 {
 	int i, j;
 	for(i = 0; i < cam->altura; i++)
 	{
 		for(j = 0; j < cam->largura; j++)
 		{
-			matriz[i][j][0] = cam->quadro[i][j][0];
-			matriz[i][j][1] = cam->quadro[i][j][1];
-			matriz[i][j][2] = cam->quadro[i][j][2];
+			alvo[i][j][0] = matriz[i][j][0];
+			alvo[i][j][1] = matriz[i][j][1];
+			alvo[i][j][2] = matriz[i][j][2];
 		}
 	}
 }
 
+void binarizacao(unsigned char ***matriz, camera *cam, int threshold)
+{
+	int i,j;
+	for(i = 0; i < cam->altura; i++){
+		for(j = 0; j < cam->largura; j++){
+			if(matriz[i][j][0] > threshold){
+				matriz[i][j][0] = 255;
+				matriz[i][j][1] = 255;
+				matriz[i][j][2] = 255;
+			}
+			else{
+				matriz[i][j][0] = 0;
+				matriz[i][j][1] = 0;
+				matriz[i][j][2] = 0;
+			}
+		}
+	}
+}
+
+void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, unsigned char ***alvo, camera *cam, int threshold)
+{
+	int i, j;
+	unsigned char r, g, b;
+	for(i = 0; i < cam->altura; i++)
+	{
+		for(j = 0; j < cam->largura; j++)
+		{
+			r = frameAtual[i][j][0];
+			g = frameAtual[i][j][1];
+			b = frameAtual[i][j][2];
+
+			r -= frameAnterior[i][j][0];
+			g -= frameAnterior[i][j][1];
+			b -= frameAnterior[i][j][2];
+
+			r *= r;
+			g *= g;
+			b *= b;
+
+			r = r + g + b;
+			
+			if (r > (threshold * threshold)) {
+				alvo[i][j][0] = 255;
+				alvo[i][j][1] = 255;
+				alvo[i][j][2] = 255;
+			} else {	    				
+				alvo[i][j][0] = 0;
+				alvo[i][j][1] = 0;
+				alvo[i][j][2] = 0;
+			}	    			
+		}
+	}
+}
+
+void sobel(unsigned char ***matriz, camera *cam, int threshold)
+{
+	int i, j;
+	unsigned char ***alvo = camera_aloca_matriz(cam);
+	int somaI = 0, somaJ = 0;
+	//toGrayScale(matriz, cam);
+	for(i = 1; i < cam->altura-1; i++)
+	{
+		for(j = 1; j < cam->largura-1; j++)
+		{
+			somaJ = ((-1*matriz[i-1][j-1][0]) +
+					(matriz[i-1][j+1][0]) +
+					(-2*matriz[i][j-1][0]) +
+					(2*matriz[i][j+1][0]) +
+					(-1*matriz[i+1][j-1][0]) +
+					(matriz[i+1][j+1][0]));
+
+			somaI = ((matriz[i-1][j-1][0])+
+					(-1*matriz[i+1][j-1][0]) +
+					(2*matriz[i-1][j][0]) +
+					(-2*matriz[i+1][j][0]) + 
+					(matriz[i-1][j+1][0]) + 
+					(-1*matriz[i+1][j+1][0]));
+
+			if(somaJ < 0)
+				somaJ = -somaJ;
+
+			if(somaI < 0)
+				somaI = -somaI;
+
+			if(somaI < threshold){
+				somaI = 0;
+			}
+
+			if(somaJ < threshold){
+				somaJ = 0;
+			}
+
+			alvo[i][j][0] = somaJ+somaI;
+			alvo[i][j][1] = somaJ+somaI;
+			alvo[i][j][2] = somaJ+somaI;
+			copiaMatriz(alvo, matriz, cam);
+			camera_libera_matriz(cam, alvo);
+		}
+	}
+}

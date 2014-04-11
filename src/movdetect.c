@@ -1,4 +1,4 @@
-#include "camera.h"
+/*#include "camera.h"
 #include "init.h"
 #include <stdio.h>
 
@@ -116,4 +116,4 @@ void movdetect()
  	al_uninstall_system();
 
  	al_stop_timer(game.timer);
-}
+}*/
