@@ -48,6 +48,8 @@ void binarizacao(unsigned char ***matriz, camera *cam, int threshold)
 	}
 }
 
+//TODO: a funcao estava com erro e eu mudei para ela funcionar apenas para imagens em grayscale. Mudar para imagens comuns
+//ou passar uma flag para a função informando que tipo de imagem será trabalhada
 void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, unsigned char ***alvo, camera *cam, int threshold)
 {
 	int i, j;
@@ -56,7 +58,8 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 	{
 		for(j = 0; j < cam->largura; j++)
 		{
-			r = frameAtual[i][j][0];
+
+			/*r = frameAtual[i][j][0];
 			g = frameAtual[i][j][1];
 			b = frameAtual[i][j][2];
 
@@ -78,15 +81,29 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 				alvo[i][j][0] = 0;
 				alvo[i][j][1] = 0;
 				alvo[i][j][2] = 0;
-			}	    			
+			}*/
+			r = frameAtual[i][j][0] - frameAnterior[i][j][0];
+			if(r < 0)
+				r = -r;
+			if(r > threshold)
+			{
+				alvo[i][j][0] = 255;
+				alvo[i][j][1] = 255;
+				alvo[i][j][2] = 255;
+			}
+			else
+			{
+				alvo[i][j][0] = 0;
+				alvo[i][j][1] = 0;
+				alvo[i][j][2] = 0;
+			}			
 		}
 	}
 }
 
-void sobel(unsigned char ***matriz, camera *cam, int threshold)
+void sobel(unsigned char ***matriz, unsigned char ***alvo, camera *cam, int threshold)
 {
 	int i, j;
-	unsigned char ***alvo = camera_aloca_matriz(cam);
 	int somaI = 0, somaJ = 0;
 	//toGrayScale(matriz, cam);
 	for(i = 1; i < cam->altura-1; i++)
@@ -124,8 +141,8 @@ void sobel(unsigned char ***matriz, camera *cam, int threshold)
 			alvo[i][j][0] = somaJ+somaI;
 			alvo[i][j][1] = somaJ+somaI;
 			alvo[i][j][2] = somaJ+somaI;
-			copiaMatriz(alvo, matriz, cam);
-			camera_libera_matriz(cam, alvo);
+			//printf("Teste\n");
 		}
 	}
+	copiaMatriz(alvo, matriz, cam);
 }

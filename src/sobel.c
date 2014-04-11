@@ -12,10 +12,11 @@ void sobel_main()
 	inicializar(cam);
 	printf("Inicializou\n");
 	al_start_timer(game.timer);
-	int i, j, n = 0;
+	//int i, j, 
+	int n = 0;
 	bool sair = false;
 	bool desenhar = false;
-	int threshold = 30;
+	///int threshold = 30;
 
 	unsigned char ***frameAtual = camera_aloca_matriz(cam);
 	unsigned char ***temp = camera_aloca_matriz(cam);
@@ -26,8 +27,7 @@ void sobel_main()
   	ALLEGRO_BITMAP *esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
   	ALLEGRO_BITMAP *direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
 
-
-	//GAME LOOP
+    //GAME LOOP
 	while(!sair)
 	{
 		//RECEBER EVENTOS
@@ -49,25 +49,24 @@ void sobel_main()
     	{
     		copiaMatriz(cam->quadro, frame_anterior, cam);
     		toGrayScale(frame_anterior, cam);
-	    	sobel(frame_anterior, cam, 20);
-	    	binarizacao(frame_anterior, cam, 50);
+    		sobel(frame_anterior, temp, cam, 60);
+    		binarizacao(frame_anterior, cam, 50);
     		n = 1;
+
     	}
 
     	if(desenhar && al_is_event_queue_empty(game.fila_eventos))
    		{
-
       		desenhar = false;
-			 
       		camera_atualiza(cam);
 	    	copiaMatriz(cam->quadro, frameAtual, cam);
 	    	toGrayScale(frameAtual, cam);
-	    	sobel(frameAtual, cam, 20);
-	    	binarizacao(frameAtual, cam, 20);
+	    	sobel(frameAtual, temp, cam, 60);
+	    	binarizacao(frameAtual, cam, 50);
 	    	dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
 	    	//frameAtual = temp;
       		camera_copia(cam, cam->quadro, esquerda);
-      		camera_copia(cam, frame_anterior, direita);
+      		camera_copia(cam, temp, direita);
       		 
       		al_flip_display();
       		copiaMatriz(frameAtual, frame_anterior, cam);

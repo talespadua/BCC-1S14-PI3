@@ -2,7 +2,7 @@ CC= gcc -std=c99
 
 CFLAGS= -W -Wall -pedantic 
 
-LIBS=  -lallegro -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro -lallegro_font -lallegro_ttf -lallegro_main -lallegro_image -lopencv_core -lopencv_highgui
+LIBS=  -lallegro -lallegro_audio -lallegro_acodec -lallegro_primitives -lallegro -lallegro_font -lallegro_ttf -lallegro_main -lallegro_image -lopencv_core -lm -lopencv_highgui
 
 SOURCEDIR = src
 

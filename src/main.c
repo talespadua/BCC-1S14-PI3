@@ -12,7 +12,7 @@ void QuitGame()
 int main()
 {
 	//start_flappy_bino();  
-	//movdetect();  		
+	//movdetect();
 	sobel_main();
   	return 0;
 }
