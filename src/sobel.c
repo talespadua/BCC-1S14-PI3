@@ -17,6 +17,7 @@ void sobel_main()
 	bool sair = false;
 	bool desenhar = false;
 	///int threshold = 30;
+	int binThreshold = 60;
 
 	unsigned char ***frameAtual = camera_aloca_matriz(cam);
 	unsigned char ***temp = camera_aloca_matriz(cam);
@@ -49,8 +50,8 @@ void sobel_main()
     	{
     		copiaMatriz(cam->quadro, frame_anterior, cam);
     		toGrayScale(frame_anterior, cam);
+    		binarizacao(frame_anterior, cam, binThreshold);
     		sobel(frame_anterior, temp, cam, 60);
-    		binarizacao(frame_anterior, cam, 50);
     		n = 1;
 
     	}
@@ -61,12 +62,12 @@ void sobel_main()
       		camera_atualiza(cam);
 	    	copiaMatriz(cam->quadro, frameAtual, cam);
 	    	toGrayScale(frameAtual, cam);
+	    	binarizacao(frameAtual, cam, binThreshold);
 	    	sobel(frameAtual, temp, cam, 60);
-	    	binarizacao(frameAtual, cam, 50);
 	    	dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
 	    	//frameAtual = temp;
       		camera_copia(cam, cam->quadro, esquerda);
-      		camera_copia(cam, temp, direita);
+      		camera_copia(cam, frameAtual, direita);
       		 
       		al_flip_display();
       		copiaMatriz(frameAtual, frame_anterior, cam);

@@ -2,15 +2,18 @@
 
 void toGrayScale(unsigned char ***matriz, camera *cam){
 	int i, j;
-	unsigned char grayLevel;
+	float grayLevel;
 	for(i = 0; i < cam->altura; i++)
 	{
 		for(j = 0; j < cam->largura; j++)
 		{
-			grayLevel = (cam->quadro[i][j][0] + cam->quadro[i][j][1] + cam->quadro[i][j][3])/3;
-			matriz[i][j][0] = grayLevel;
-			matriz[i][j][1] = grayLevel;
-			matriz[i][j][2] = grayLevel;
+			//Gray = (Red * 0.2126 + Green * 0.7152 + Blue * 0.0722)
+			grayLevel = ((float)cam->quadro[i][j][0]*0.2126 + 
+						 (float)cam->quadro[i][j][1]*0.7152 + 
+						 (float)cam->quadro[i][j][3]*0.0722);
+			matriz[i][j][0] = (uchar)grayLevel;
+			matriz[i][j][1] = (uchar)grayLevel;
+			matriz[i][j][2] = (uchar)grayLevel;
 		}
 	}
 }
@@ -29,6 +32,8 @@ void copiaMatriz(unsigned char ***matriz, unsigned char ***alvo, camera *cam)
 	}
 }
 
+
+//TODO: Corrigir essa função pois ela está fazendo o contrário do que deveria
 void binarizacao(unsigned char ***matriz, camera *cam, int threshold)
 {
 	int i,j;
@@ -58,7 +63,6 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 	{
 		for(j = 0; j < cam->largura; j++)
 		{
-
 			/*r = frameAtual[i][j][0];
 			g = frameAtual[i][j][1];
 			b = frameAtual[i][j][2];
