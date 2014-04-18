@@ -48,10 +48,14 @@ void sobel_main()
 
     	if(n == 0)
     	{
-    		copiaMatriz(cam->quadro, frame_anterior, cam);
-    		toGrayScale(frame_anterior, cam);
-    		binarizacao(frame_anterior, cam, binThreshold);
-    		sobel(frame_anterior, temp, cam, 60);
+    		//copiaMatriz(cam->quadro, frame_anterior, cam);
+    		//toGrayScale(frame_anterior, cam);
+    		//binarizacao(frame_anterior, cam, binThreshold);
+    		//sobel(frame_anterior, temp, cam, 60);
+    		copiaMatriz(cam->quadro, temp, cam);
+    		to_grey_scale(temp, cam);
+    		sobel(temp, frame_anterior, cam, 60);
+    		binarize(frame_anterior, cam, binThreshold);
     		n = 1;
 
     	}
@@ -60,17 +64,27 @@ void sobel_main()
    		{
       		desenhar = false;
       		camera_atualiza(cam);
-	    	copiaMatriz(cam->quadro, frameAtual, cam);
-	    	toGrayScale(frameAtual, cam);
-	    	binarizacao(frameAtual, cam, binThreshold);
-	    	sobel(frameAtual, temp, cam, 60);
-	    	dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
+
+	    	//copiaMatriz(cam->quadro, frameAtual, cam);
+	    	//toGrayScale(frameAtual, cam);
+	    	//binarize(frameAtual, cam, binThreshold);
+
+	    	//binarizacao(frameAtual, cam, binThreshold);
+	    	//dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
 	    	//frameAtual = temp;
+	    	
+	    	copiaMatriz(cam->quadro, temp, cam);
+	    	to_grey_scale(temp, cam);
+	    	sobel(temp, frameAtual, cam, 60);
+	    	binarize(frameAtual, cam, binThreshold);
+	    	euclidian_distance(frameAtual, frame_anterior, cam, 20);
+
       		camera_copia(cam, cam->quadro, esquerda);
+      		//camera_copia(cam, frameAtual, direita);
       		camera_copia(cam, frameAtual, direita);
       		 
       		al_flip_display();
-      		copiaMatriz(frameAtual, frame_anterior, cam);
+      		copiaMatriz(temp, frame_anterior, cam);
     	}
 	}
 

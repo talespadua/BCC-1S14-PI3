@@ -1,21 +1,39 @@
 #include "camera.h"
 
 void toGrayScale(unsigned char ***matriz, camera *cam){
-	int i, j;
+	int i, j, r, g, b;
 	float grayLevel;
 	for(i = 0; i < cam->altura; i++)
 	{
 		for(j = 0; j < cam->largura; j++)
-		{
+		{			
 			//Gray = (Red * 0.2126 + Green * 0.7152 + Blue * 0.0722)
 			grayLevel = ((float)cam->quadro[i][j][0]*0.2126 + 
 						 (float)cam->quadro[i][j][1]*0.7152 + 
 						 (float)cam->quadro[i][j][3]*0.0722);
-			matriz[i][j][0] = (uchar)grayLevel;
-			matriz[i][j][1] = (uchar)grayLevel;
-			matriz[i][j][2] = (uchar)grayLevel;
+
+			matriz[i][j][0] = grayLevel;
+			matriz[i][j][1] = grayLevel;
+			matriz[i][j][2] = grayLevel;
 		}
-	}
+	}	
+}
+
+void to_grey_scale(unsigned char ***matriz, camera *cam) {	
+	int i, j, r, g, b, gscale;
+	
+	for(i = 0; i < cam->altura; i++) {
+		for(j = 0; j < cam->largura; j++) {
+	    	r = matriz[i][j][0];
+	    	g = matriz[i][j][1];
+	    	b = matriz[i][j][2];
+
+	    	gscale = (r + g + b) / 3;
+	    	matriz[i][j][0] = gscale;
+	    	matriz[i][j][1] = gscale;
+	    	matriz[i][j][2] = gscale;
+		}
+	}	
 }
 
 void copiaMatriz(unsigned char ***matriz, unsigned char ***alvo, camera *cam)
@@ -53,6 +71,45 @@ void binarizacao(unsigned char ***matriz, camera *cam, int threshold)
 	}
 }
 
+void binarize(unsigned char ***matriz, camera *cam, int threshold) {	
+	int i,j;
+
+	for(i = 0; i < cam->altura; i++) {
+		for(j = 0; j < cam->largura; j++) {
+			matriz[i][j][0] = (matriz[i][j][0] > threshold) ? 255 : 0;
+			matriz[i][j][1] = (matriz[i][j][1] > threshold) ? 255 : 0;
+			matriz[i][j][2] = (matriz[i][j][2] > threshold) ? 255 : 0;
+		}
+	}
+}
+
+void euclidian_distance(unsigned char ***frame_atual, unsigned char ***frame_anterior, camera *cam, int threshold) {
+	int i, j;
+	unsigned char r, g, b;
+	for(i = 0; i < cam->altura; i++) {
+		for(j = 0; j < cam->largura; j++) {
+			r = frame_atual[i][j][0];
+			g = frame_atual[i][j][1];
+			b = frame_atual[i][j][2];
+
+			r -= frame_anterior[i][j][0];
+			g -= frame_anterior[i][j][1];
+			b -= frame_anterior[i][j][2];
+
+			r *= r;
+			g *= g;
+			b *= b;
+
+			r = r + g + b;
+			threshold *= threshold;
+			
+			frame_atual[i][j][0] = (r > threshold) ? 255 : 0;
+			frame_atual[i][j][1] = (r > threshold) ? 255 : 0;
+			frame_atual[i][j][2] = (r > threshold) ? 255 : 0;
+		}
+	}
+}
+
 //TODO: a funcao estava com erro e eu mudei para ela funcionar apenas para imagens em grayscale. Mudar para imagens comuns
 //ou passar uma flag para a função informando que tipo de imagem será trabalhada
 void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, unsigned char ***alvo, camera *cam, int threshold)
@@ -63,7 +120,7 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 	{
 		for(j = 0; j < cam->largura; j++)
 		{
-			/*r = frameAtual[i][j][0];
+			r = frameAtual[i][j][0];
 			g = frameAtual[i][j][1];
 			b = frameAtual[i][j][2];
 
@@ -85,10 +142,15 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 				alvo[i][j][0] = 0;
 				alvo[i][j][1] = 0;
 				alvo[i][j][2] = 0;
-			}*/
-			r = frameAtual[i][j][0] - frameAnterior[i][j][0];
-			if(r < 0)
+			}
+			
+			// r = frameAtual[i][j][0] - frameAnterior[i][j][0];
+			
+			/*
+			if(r < 0) {
 				r = -r;
+			}
+
 			if(r > threshold)
 			{
 				alvo[i][j][0] = 255;
@@ -100,7 +162,8 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 				alvo[i][j][0] = 0;
 				alvo[i][j][1] = 0;
 				alvo[i][j][2] = 0;
-			}			
+			}	
+			//*/		
 		}
 	}
 }

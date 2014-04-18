@@ -101,14 +101,19 @@ void start_flappy_bino() {
 	    			b1 = resultado[i+1][j-1][2];
 	    			b2 = resultado[i+1][j+0][2];
 	    			b3 = resultado[i+1][j+1][2];
-
-	    			sobel = (-r1 -r2 -r2 -r3 +b1 +b2 +b2 +b3);
 	    		}
 	    	}
 
-	    			// +r1 2*g1 +b1
-	    			// 0 0 0
-	    			// -r3 -2*g3 -b3
+	    	for(i = 0; i < cam->altura; i++) {
+	    		for(j = 0; j < cam->largura; j++) {
+
+	    		}
+	    	}
+
+
+	    	// +r1 2*g1 +b1
+	    	// 0 0 0
+	    	// -r3 -2*g3 -b3
 
 	    	int minha_altura_max = cam->altura - 10;
 
