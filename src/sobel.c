@@ -25,6 +25,8 @@ void sobel_main()
 
 	ALLEGRO_BITMAP *buffer = al_get_backbuffer(game.janela);
 
+	ALLEGRO_BITMAP *fundo = al_load_bitmap("../img/menu_tosco.png");
+
   	ALLEGRO_BITMAP *esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
   	ALLEGRO_BITMAP *direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
 
@@ -85,7 +87,7 @@ void sobel_main()
       		camera_copia(cam, frame_anterior, esquerda);
       		//camera_copia(cam, frameAtual, direita);
       		camera_copia(cam, frameAtual, direita);
-      		 
+      		al_draw_bitmap(fundo, 0, 0, 0);
       		al_flip_display();
       		copiaMatriz(frameAtual, frame_anterior, cam);
     	}
@@ -93,6 +95,7 @@ void sobel_main()
 
 	al_destroy_bitmap(direita);
 	al_destroy_bitmap(esquerda);
+	al_destroy_bitmap(fundo);
 	camera_libera_matriz(cam, frameAtual);
 	camera_libera_matriz(cam, temp);
 	camera_libera_matriz(cam, frame_anterior);

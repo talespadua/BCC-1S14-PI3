@@ -1,4 +1,4 @@
-#include "camera.h"
+/*#include "camera.h"
 #include "init.h"
 #include <stdio.h>
 #include <allegro5/allegro.h>
@@ -181,4 +181,4 @@ void start_flappy_bino() {
 void draw_circle(int center_x, int center_y) {	
 	ALLEGRO_COLOR cor = al_map_rgb_f(0, 0, 1);
 	al_draw_circle(center_x, center_y, 10, cor, 1);
-}
+}*/
