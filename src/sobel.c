@@ -54,6 +54,7 @@ void sobel_main()
     		//sobel(frame_anterior, temp, cam, 60);
     		copiaMatriz(cam->quadro, frame_anterior, cam);
     		to_grey_scale(frame_anterior, cam);
+    		gauss_filter(frame_anterior, cam);
     		sobel(frame_anterior, cam, 60);
     		binarize(frame_anterior, cam, binThreshold);
     		n = 1;
@@ -75,6 +76,7 @@ void sobel_main()
 	    	
 	    	copiaMatriz(cam->quadro, frameAtual, cam);
 	    	to_grey_scale(frameAtual, cam);
+	    	gauss_filter(frame_anterior, cam);
 	    	sobel(frameAtual, cam, 60);
 	    	binarize(frameAtual, cam, binThreshold);
 	    	//euclidian_distance(frameAtual, frame_anterior, cam, 20);

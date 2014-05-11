@@ -219,26 +219,36 @@ void sobel(unsigned char ***matriz, camera *cam, int threshold)
 void gauss_filter(unsigned char ***matriz, camera *cam)
 {
 	unsigned char ***alvo = camera_aloca_matriz(cam);
-	
-	for(i = 0; i < cam->altura; i++)
+	copiaMatriz(matriz, alvo, cam);
+	int valor = 0;
+	int i, j;
+
+	for(i = 2; i < cam->altura - 2; i++)
 	{
-		for(j = 0; j < cam->largura; j++)
+		for(j = 2; j < cam->largura - 2; j++)
 		{
 			//soma os valores de cor aplicados pesos diferentes para a distancia do centro
 			//funciona apenas com grayscale
 			//TODO: Aplicar para colorido, usar um parametro para avisar que será colorido ou grayscale
-			if((i < 2 || i > cam->altura-2 ||  j < 2 || j > cam->largura-2)
+			//printf("teste i:%d j:%d\n", i, j );
+			/*if((i < 2 || i > cam->altura-2 ||  j < 2 || j > cam->largura-2))	
 			{
 				alvo[i][j][0] = matriz[i][j][0];
+				alvo[i][j][1] = matriz[i][j][1];
+				alvo[i][j][2] = matriz[i][j][2];
 			}
-			else
-			{
-				alvo[i][j][0] = (2*matriz[i-2][j-2][0] +  4*matriz[i-2][j-1][0] +  5*matriz[i-2][j][0] +  4*matriz[i-2][j+1][0] + 2*matriz[i-2][j+2][0] +
+			else*/
+			//{
+				valor = (2*matriz[i-2][j-2][0] +  4*matriz[i-2][j-1][0] +  5*matriz[i-2][j][0] +  4*matriz[i-2][j+1][0] + 2*matriz[i-2][j+2][0] +
 							 4*matriz[i-1][j-2][0] +  9*matriz[i-1][j-1][0] + 12*matriz[i-1][j][0] +  9*matriz[i-1][j+1][0] + 4*matriz[i-1][j+2][0] +
 							 5*matriz[i][j-2][0]   + 12*matriz[i][j-1][0]   + 15*matriz[i][j][0]   + 12*matriz[i][j+1][0] +   5*matriz[i][j+2][0] +
 							 4*matriz[i+1][j-2][0] +  9*matriz[i+1][j-1][0] + 12*matriz[i+1][j][0] +  9*matriz[i+1][j+1][0] + 4*matriz[i+1][j+2][0] +
 						 	 2*matriz[i+2][j-2][0] +  4*matriz[i+2][j-1][0] +  5*matriz[i+2][j][0] +  4*matriz[i+2][j+1][0] + 2*matriz[i+2][j+2][0]) / 159;
-			}			
+
+				alvo[i][j][0] = valor;
+				alvo[i][j][1] = valor;
+				alvo[i][j][2] = valor;
+			//}			
 		}			
 	}
 
