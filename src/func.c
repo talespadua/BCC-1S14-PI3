@@ -168,8 +168,9 @@ void dist_euclid(unsigned char ***frameAtual, unsigned char ***frameAnterior, un
 	}
 }
 
-void sobel(unsigned char ***matriz, unsigned char ***alvo, camera *cam, int threshold)
+void sobel(unsigned char ***matriz, camera *cam, int threshold)
 {
+	unsigned char ***alvo = camera_aloca_matriz(cam);
 	int i, j;
 	int somaI = 0, somaJ = 0;
 	//toGrayScale(matriz, cam);
@@ -212,4 +213,35 @@ void sobel(unsigned char ***matriz, unsigned char ***alvo, camera *cam, int thre
 		}
 	}
 	copiaMatriz(alvo, matriz, cam);
+	camera_libera_matriz(cam, alvo);
+}
+
+void gauss_filter(unsigned char ***matriz, camera *cam)
+{
+	unsigned char ***alvo = camera_aloca_matriz(cam);
+	
+	for(i = 0; i < cam->altura; i++)
+	{
+		for(j = 0; j < cam->largura; j++)
+		{
+			//soma os valores de cor aplicados pesos diferentes para a distancia do centro
+			//funciona apenas com grayscale
+			//TODO: Aplicar para colorido, usar um parametro para avisar que será colorido ou grayscale
+			if((i < 2 || i > cam->altura-2 ||  j < 2 || j > cam->largura-2)
+			{
+				alvo[i][j][0] = matriz[i][j][0];
+			}
+			else
+			{
+				alvo[i][j][0] = (2*matriz[i-2][j-2][0] +  4*matriz[i-2][j-1][0] +  5*matriz[i-2][j][0] +  4*matriz[i-2][j+1][0] + 2*matriz[i-2][j+2][0] +
+							 4*matriz[i-1][j-2][0] +  9*matriz[i-1][j-1][0] + 12*matriz[i-1][j][0] +  9*matriz[i-1][j+1][0] + 4*matriz[i-1][j+2][0] +
+							 5*matriz[i][j-2][0]   + 12*matriz[i][j-1][0]   + 15*matriz[i][j][0]   + 12*matriz[i][j+1][0] +   5*matriz[i][j+2][0] +
+							 4*matriz[i+1][j-2][0] +  9*matriz[i+1][j-1][0] + 12*matriz[i+1][j][0] +  9*matriz[i+1][j+1][0] + 4*matriz[i+1][j+2][0] +
+						 	 2*matriz[i+2][j-2][0] +  4*matriz[i+2][j-1][0] +  5*matriz[i+2][j][0] +  4*matriz[i+2][j+1][0] + 2*matriz[i+2][j+2][0]) / 159;
+			}			
+		}			
+	}
+
+	copiaMatriz(alvo, matriz, cam);
+	camera_libera_matriz(cam, alvo);
 }
