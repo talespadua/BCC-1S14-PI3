@@ -100,9 +100,13 @@ void face_main() {
       		//camera_copia(cam, frameAtual, direita);
 			camera_copia(cam, frameAtual, direita);
 
-			al_draw_line(cam->largura, cam->altura/4, cam->largura*2, cam->altura/4, color, 5);
-			al_draw_line(cam->largura, cam->altura/2, cam->largura*2, cam->altura/2, color, 5);
-			al_draw_line(cam->largura * 1.25, 0, cam->largura * 1.25, cam->altura, color, 5);
+			al_draw_line(startx, starty, startx, endy, color, 5);
+			al_draw_line(endx, starty, endx, endy, color, 5);
+			al_draw_line(startx, starty, endx, starty, color, 5);
+			al_draw_line(startx, endy, endx, endy, color, 5);
+
+			// al_draw_line(cam->largura, cam->altura/2, cam->largura*2, cam->altura/2, color, 5);
+			// al_draw_line(cam->largura * 1.25, 0, cam->largura * 1.25, cam->altura, color, 5);
 
 
 			al_flip_display();
@@ -166,7 +170,6 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 
 	total_pixels = altura * largura;
 
-	printf("\n\n\nfacecounter: %d, total_pixels: %d\n\n\n", facecounter, total_pixels);
 	for (i = start_x; i < end_x; i++) {
 		for (j = start_y; j < end_y; j++) {
 
@@ -177,22 +180,57 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 				
 				pixel_esperado = 255;
 
-				if (j < lip_iniy &&
-					(j > left_endy || i > left_endx && i < right_inix)) {
+				if (j < lip_iniy) {
+					if (j > left_endy || i > left_endx && i < right_inix) {
 						pixel_esperado = 0;
-					
-				} else {	
+
+						if (matrix[j][i][0] == 255) {
+							facecounter--;
+						}	
+					} else {	
+						if (matrix[j][i][0] == 255) {
+							facecounter++;
+						}	
+
+						// olhos
+						matrix[j][i][0] = 0;
+						matrix[j][i][1] = 0;
+						matrix[j][i][2] = 255;
+					}
+				} else {		
 					if (matrix[j][i][0] == 255) {
 						facecounter++;
 					}	
-									
+
+					// boca
 					matrix[j][i][0] = 0;
-					matrix[j][i][1] = 0;
-					matrix[j][i][2] = 255;
+					matrix[j][i][1] = 255;
+					matrix[j][i][2] = 0;
 				}
-			}		
+			}
 		}
 	}
+	
+	total_pixels = ((left_endy - left_iniy) * (left_endx - left_inix));
+	//total_pixels *= 2;
+	total_pixels += ((lip_endy - lip_iniy) * (lip_endx - lip_inix));
+
+	printf("\n\n\nfacecounter: %d, total_pixels: %d\n\n\n", facecounter, total_pixels);
+	
+	if (facecounter > ((total_pixels * 25) / 100)) {
+		for (i = start_x; i < end_x; i++) {
+			for (j = start_y; j < end_y; j++) {
+				// matrix[j][i][0] = 0;
+				// matrix[j][i][1] = 255;
+				// matrix[j][i][2] = 0;
+
+				alvo[j][i][0] = 255;
+				alvo[j][i][1] = 0;
+				alvo[j][i][2] = 0;
+			}
+		}
+	}
+	
 
 	/*
   	// olho esquerdo
@@ -254,25 +292,6 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 			matrix[j][i][2] = 255;
 		}
 	} */
-
-	total_pixels = ((left_endy - left_iniy) * (left_endx - left_inix));
-	total_pixels *= 2;
-	total_pixels += ((lip_endy - lip_iniy) * (lip_endx - lip_inix));
-
-	if (facecounter > ((total_pixels * 5) / 10)) {
-		for (i = start_x; i < end_x; i++) {
-			for (j = start_y; j < end_y; j++) {
-				// matrix[j][i][0] = 0;
-				// matrix[j][i][1] = 255;
-				// matrix[j][i][2] = 0;
-
-				alvo[j][i][0] = 255;
-				alvo[j][i][1] = 0;
-				alvo[j][i][2] = 0;
-			}
-		}
-	}
-	
 
 	// al_draw_circle(largura/2, altura/2, (altura)/2, color, 2); 
 
