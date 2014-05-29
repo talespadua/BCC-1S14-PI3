@@ -3,6 +3,7 @@
 #include "movdetect.h"
 #include "flappybino.h"
 #include "sobel.h"
+#include "facedetection.h"
 
 void QuitGame()
 {
@@ -13,6 +14,6 @@ int main()
 {
 	//start_flappy_bino();  
 	//movdetect();
-	sobel_main();
+	face_main();
   	return 0;
 }

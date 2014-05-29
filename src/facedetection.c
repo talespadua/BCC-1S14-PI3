@@ -88,7 +88,13 @@ void face_main() {
 			euclidian_overlay(frameAtual, fundo, cam, 120);
 	    	//gauss_filter(frameAtual, cam, true);
 			
-	    	is_face(frameAtual, cam->quadro, 0, 0, cam->largura / 4, cam->altura/2);
+			int startx, starty, endx, endy;
+			startx = cam->largura / 2;
+			starty = cam->altura / 4;
+			endx = startx + cam->largura / 4;
+			endy = starty + cam->altura / 2;
+
+	    	is_face(frameAtual, cam->quadro, startx, starty, endx, endy);
 
 			camera_copia(cam, cam->quadro, esquerda);
       		//camera_copia(cam, frameAtual, direita);
@@ -131,12 +137,65 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 	int i, j;
 	int i_start, j_start, i_end, j_end;
 	int largura, altura;
+	int total_pixels;
+	char pixel_esperado;
+
+	// TODO fazer uma struct deste paranauê aqui
+	int left_inix, left_endx, right_inix, right_endx, lip_inix, lip_endx;
+	int left_iniy, left_endy, right_iniy, right_endy, lip_iniy, lip_endy;
 
   	ALLEGRO_COLOR color = al_map_rgb_f(1, 0, 0);
 
 	largura = end_x - start_x;
 	altura = end_y - start_y;
 
+	left_inix = start_x + (largura / 7);
+	left_endx = start_x + ((largura * 3) / 7);
+	left_iniy = start_y + (altura / 5);
+	left_endy = start_y + ((altura * 2) / 5);
+
+	right_inix = start_x + ((largura * 2) / 3.5);
+	right_endx = start_x + ((largura * 3) / 3.5);
+	right_iniy = start_y + (altura / 5); 
+	right_endy = start_y + ((altura * 2) / 5);
+
+	lip_inix = start_x + ((largura) / 7);
+	lip_endx = start_x + ((largura * 3) / 3.5);
+	lip_iniy = start_y + ((altura * 2.75) / 5); 
+	lip_endy = start_y + ((altura * 3.5) / 5);
+
+	total_pixels = altura * largura;
+
+	printf("\n\n\nfacecounter: %d, total_pixels: %d\n\n\n", facecounter, total_pixels);
+	for (i = start_x; i < end_x; i++) {
+		for (j = start_y; j < end_y; j++) {
+
+			pixel_esperado = 0;
+			// Região onde se espera estar os olhos e a boca
+			if (i > left_inix && i < right_endx &&
+				j > left_iniy && j < lip_endy) {
+				
+				pixel_esperado = 255;
+
+				if (j < lip_iniy &&
+					(j > left_endy || i > left_endx && i < right_inix)) {
+						pixel_esperado = 0;
+					
+				} else {	
+					if (matrix[j][i][0] == 255) {
+						facecounter++;
+					}	
+									
+					matrix[j][i][0] = 0;
+					matrix[j][i][1] = 0;
+					matrix[j][i][2] = 255;
+				}
+			}		
+		}
+	}
+
+	/*
+  	// olho esquerdo
 	i_start = start_x + (largura / 7);
 	j_start = start_y + (altura / 5);
 	
@@ -156,6 +215,7 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 		}
 	}
 
+	// olho direito
 	i_start = start_x + ((largura * 2) / 3.5);
 	j_start = start_y + (altura / 5);
 	
@@ -175,20 +235,46 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 		}
 	}
 
-	/*
-	if (facecounter >= 200) {
+	// boca	
+	i_start = start_x + ((largura) / 7);
+	j_start = start_y + ((altura * 2.75) / 5);
+	
+	i_end = start_x + ((largura * 3) / 3.5);
+	j_end = start_y + ((altura * 3.5) / 5);
+
+	for (i = i_start; i < i_end; i++) {
+		for (j = j_start; j < j_end; j++) {
+
+			if (matrix[j][i][0] == 255) {
+				facecounter++;
+			}
+
+			matrix[j][i][0] = 0;
+			matrix[j][i][1] = 0;
+			matrix[j][i][2] = 255;
+		}
+	} */
+
+	total_pixels = ((left_endy - left_iniy) * (left_endx - left_inix));
+	total_pixels *= 2;
+	total_pixels += ((lip_endy - lip_iniy) * (lip_endx - lip_inix));
+
+	if (facecounter > ((total_pixels * 5) / 10)) {
 		for (i = start_x; i < end_x; i++) {
 			for (j = start_y; j < end_y; j++) {
+				// matrix[j][i][0] = 0;
+				// matrix[j][i][1] = 255;
+				// matrix[j][i][2] = 0;
 
-				matrix[j][i][0] = alvo[j][i][0];
-				matrix[j][i][1] = alvo[j][i][1];
-				matrix[j][i][2] = alvo[j][i][2];
+				alvo[j][i][0] = 255;
+				alvo[j][i][1] = 0;
+				alvo[j][i][2] = 0;
 			}
 		}
 	}
-	*/
+	
 
-	al_draw_circle(largura/2, altura/2, (altura)/2, color, 2); 
+	// al_draw_circle(largura/2, altura/2, (altura)/2, color, 2); 
 
 	return 1;
 }

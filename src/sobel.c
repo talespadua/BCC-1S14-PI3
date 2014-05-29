@@ -73,7 +73,7 @@ void sobel_main()
 	    	//binarizacao(frameAtual, cam, binThreshold);
 	    	//dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
 	    	//frameAtual = temp;
-	    	
+
 	    	copiaMatriz(cam->quadro, frameAtual, cam);
 	    	//to_grey_scale(frameAtual, cam);
 	    	gauss_filter(frame_anterior, cam, true);
@@ -97,7 +97,7 @@ void sobel_main()
 	camera_libera_matriz(cam, temp);
 	camera_libera_matriz(cam, frame_anterior);
 	camera_finaliza(cam);
-	
+
 	al_unregister_event_source(game.fila_eventos, al_get_display_event_source(game.janela));
   	al_unregister_event_source(game.fila_eventos, al_get_timer_event_source(game.timer));
 
