@@ -46,7 +46,7 @@ void face_main() {
 			printf("evento desconhecido\n");
 		}
 
-		if(n == 0) {
+		if(n == 70) {
     		//copiaMatriz(cam->quadro, frame_anterior, cam);
     		//toGrayScale(frame_anterior, cam);
     		//binarizacao(frame_anterior, cam, binThreshold);
@@ -54,8 +54,8 @@ void face_main() {
 			copiaMatriz(cam->quadro, fundo, cam);
     		//to_grey_scale(frame_anterior, cam);
 			//gauss_filter(frame_anterior, cam, true);
-    		sobel(fundo, cam, 50);
-    		binarize(fundo, cam, binThreshold);    		
+    		//sobel(fundo, cam, 50);
+    		//binarize(fundo, cam, binThreshold);    		
 			n = 1;
 		}
 
@@ -63,29 +63,13 @@ void face_main() {
 			desenhar = false;
 			camera_atualiza(cam);
 
-	    	//copiaMatriz(cam->quadro, frameAtual, cam);
-	    	//toGrayScale(frameAtual, cam);
-	    	//binarize(frameAtual, cam, binThreshold);
-
-	    	//binarizacao(frameAtual, cam, binThreshold);
-	    	//dist_euclid(frameAtual, frame_anterior, temp, cam, 20);
-	    	//frameAtual = temp;
-
-	    	//copiaMatriz(cam->quadro, frameAtual, cam);
-	    	//to_grey_scale(frameAtual, cam);
-	    	//gauss_filter(frame_anterior, cam, true);
-	    	//binarize(frameAtual, cam, binThreshold);
-	    	//sobel(frameAtual, cam, 60);
-	    	//binarize(frameAtual, cam, binThreshold);
-	    	//euclidian_distance(frameAtual, frame_anterior, cam, 20);
-
 
       		// Vini
 			copiaMatriz(cam->quadro, frameAtual, cam);
 	    	//to_grey_scale(frameAtual, cam);
-	    	sobel(frameAtual, cam, 50);
-			binarize(frameAtual, cam, binThreshold);
-			euclidian_overlay(frameAtual, fundo, cam, 120);
+	    	//sobel(frameAtual, cam, 50);
+			//binarize(frameAtual, cam, binThreshold);
+			//euclidian_overlay(frameAtual, fundo, cam, 120);
 	    	//gauss_filter(frameAtual, cam, true);
 			
 			int startx, starty, endx, endy;
@@ -94,7 +78,7 @@ void face_main() {
 			endx = startx + cam->largura / 4;
 			endy = starty + cam->altura / 2;
 
-	    	is_face(frameAtual, cam->quadro, startx, starty, endx, endy);
+	    	// is_face(frameAtual, cam->quadro, startx, starty, endx, endy);
 
 			camera_copia(cam, cam->quadro, esquerda);
       		//camera_copia(cam, frameAtual, direita);
@@ -217,7 +201,7 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 
 	printf("\n\n\nfacecounter: %d, total_pixels: %d\n\n\n", facecounter, total_pixels);
 	
-	if (facecounter > ((total_pixels * 25) / 100)) {
+	if (facecounter > ((total_pixels * 13) / 100)) {
 		for (i = start_x; i < end_x; i++) {
 			for (j = start_y; j < end_y; j++) {
 				// matrix[j][i][0] = 0;
