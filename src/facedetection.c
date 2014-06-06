@@ -203,8 +203,8 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 						}	
 
 						// olhos
-						matrix[j][i][0] = 0;
-						matrix[j][i][1] = 0;
+						matrix[j][i][0] = matrix[j][i][0];
+						matrix[j][i][1] = matrix[j][i][1];
 						matrix[j][i][2] = 255;
 					}
 				} else {		
@@ -213,9 +213,9 @@ int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int sta
 					}	
 
 					// boca
-					matrix[j][i][0] = 0;
+					matrix[j][i][0] = matrix[j][i][0];
 					matrix[j][i][1] = 255;
-					matrix[j][i][2] = 0;
+					matrix[j][i][2] = matrix[j][i][2];
 				}
 			}
 		}
