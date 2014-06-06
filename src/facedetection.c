@@ -1,6 +1,9 @@
+#include <stdio.h>
+
 #include "camera.h"
 #include "init.h"
-#include <stdio.h>
+#include "sub_matriz.h"
+#include "sm_functions.h"
 
 int is_face(unsigned char ***matrix, unsigned char ***alvo, int start_x, int start_y, int end_x, int end_y);
 void euclidian_overlay(unsigned char ***frame_atual, unsigned char ***frame_anterior, camera *cam, int threshold);
@@ -29,6 +32,17 @@ void face_main() {
 
 	ALLEGRO_BITMAP *esquerda = al_create_sub_bitmap(buffer, 0, 0, cam->largura, cam->altura);
 	ALLEGRO_BITMAP *direita = al_create_sub_bitmap(buffer, cam->largura, 0, cam->largura, cam->altura);
+
+	// Sub Matriz
+	int startx, starty, endx, endy;
+	startx = cam->largura / 2;
+	starty = cam->altura / 4;
+	
+	endx = startx + cam->largura / 4;
+	endy = starty + cam->altura / 2;
+
+	sub_matriz *sm = sm_aloca(endy - starty, endx - startx);	
+	sub_matriz *sm_aux = sm_aloca(sm->altura, sm->largura);
 
     //GAME LOOP
 	while(!sair) {
@@ -72,22 +86,30 @@ void face_main() {
 			//euclidian_overlay(frameAtual, fundo, cam, 120);
 	    	//gauss_filter(frameAtual, cam, true);
 			
-			int startx, starty, endx, endy;
-			startx = cam->largura / 2;
-			starty = cam->altura / 4;
-			endx = startx + cam->largura / 4;
-			endy = starty + cam->altura / 2;
+			// int startx, starty, endx, endy;
+			// startx = cam->largura / 2;
+			// starty = cam->altura / 4;
+			// endx = startx + cam->largura / 4;
+			// endy = starty + cam->altura / 2;
+	    	
+	    	sm_matriz_copy(sm, cam->quadro, startx, starty);
+	    	sm_grey_scale(sm);
+	    	sm_sobel(sm, sm_aux, 50);
+	    	sm_binarize(sm_aux, 50);
+	    	sm_matriz_conversion(sm_aux, frameAtual, startx, starty);
+	    	sm_matriz_conversion(sm, frameAtual, 0, 0);
+	    	sm_matriz_conversion(sm_aux, frameAtual, 0, cam->altura/2);
 
-	    	// is_face(frameAtual, cam->quadro, startx, starty, endx, endy);
+	    	is_face(frameAtual, cam->quadro, startx, starty, endx, endy);
 
 			camera_copia(cam, cam->quadro, esquerda);
       		//camera_copia(cam, frameAtual, direita);
 			camera_copia(cam, frameAtual, direita);
 
-			al_draw_line(startx, starty, startx, endy, color, 5);
-			al_draw_line(endx, starty, endx, endy, color, 5);
-			al_draw_line(startx, starty, endx, starty, color, 5);
-			al_draw_line(startx, endy, endx, endy, color, 5);
+			//al_draw_line(startx, starty, startx, endy, color, 5);
+			//al_draw_line(endx, starty, endx, endy, color, 5);
+			//al_draw_line(startx, starty, endx, starty, color, 5);
+			//al_draw_line(startx, endy, endx, endy, color, 5);
 
 			// al_draw_line(cam->largura, cam->altura/2, cam->largura*2, cam->altura/2, color, 5);
 			// al_draw_line(cam->largura * 1.25, 0, cam->largura * 1.25, cam->altura, color, 5);
@@ -100,6 +122,10 @@ void face_main() {
 
 	al_destroy_bitmap(direita);
 	al_destroy_bitmap(esquerda);
+
+	sm_finaliza(sm);
+	sm_finaliza(sm_aux);
+
 	camera_libera_matriz(cam, frameAtual);
 	camera_libera_matriz(cam, temp);
 	camera_libera_matriz(cam, frame_anterior);
