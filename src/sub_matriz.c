@@ -7,12 +7,12 @@ sub_matriz *sm_aloca(int altura, int largura) {
 	sm->altura = altura;
 	sm->largura = largura;
 
-	sm->matriz = malloc(cam->altura * sizeof(unsigned char **));
+	sm->matriz = malloc(sm->altura * sizeof(unsigned char **));
 
-	for(int y = 0; y < cam->altura; y++) {
-    	sm->matriz[y] = malloc(cam->largura * sizeof(unsigned char *));
+	for(int y = 0; y < sm->altura; y++) {
+    	sm->matriz[y] = malloc(sm->largura * sizeof(unsigned char *));
 
-    	for(int x = 0; x < cam->largura; x++)
+    	for(int x = 0; x < sm->largura; x++)
      		sm->matriz[y][x] = malloc(3 * sizeof(unsigned char));
   	}
 
@@ -43,7 +43,6 @@ void sm_finaliza(sub_matriz *sm) {
 	free(sm);
 }
 
-
 void sm_sub_matriz_copy (sub_matriz *atual, sub_matriz *alvo) {
 	int x, y;
 
@@ -59,11 +58,23 @@ void sm_sub_matriz_copy (sub_matriz *atual, sub_matriz *alvo) {
 void sm_matriz_copy(sub_matriz *alvo, unsigned char ***matriz, int x_inicio, int y_inicio) {
 	int x, y;
 
-	for (y = 0; y < atual->altura; y++) {
-		for (x = 0; x < atual->largura; x++) {
+	for (y = 0; y < alvo->altura; y++) {
+		for (x = 0; x < alvo->largura; x++) {
 			alvo->matriz[y][x][0] = matriz[y + y_inicio][x + x_inicio][0];		
 			alvo->matriz[y][x][1] = matriz[y + y_inicio][x + x_inicio][1];
 			alvo->matriz[y][x][2] = matriz[y + y_inicio][x + x_inicio][2];
+		}
+	}
+}
+
+void sm_matriz_conversion(sub_matriz *alvo, unsigned char ***matriz, int x_inicio, int y_inicio) {
+	int x, y;
+
+	for (y = 0; y < alvo->altura; y++) {
+		for (x = 0; x < alvo->largura; x++) {
+			matriz[y + y_inicio][x + x_inicio][0] = alvo->matriz[y][x][0];		
+			matriz[y + y_inicio][x + x_inicio][1] = alvo->matriz[y][x][1];
+			matriz[y + y_inicio][x + x_inicio][2] = alvo->matriz[y][x][2];
 		}
 	}
 }

@@ -18,4 +18,7 @@ void sm_sub_matriz_copy(sub_matriz *atual, sub_matriz *alvo);
 /* sub_matriz alvo, matriz original, inicio da largura da matriz original, inicio da altura da matriz original */
 void sm_matriz_copy(sub_matriz *alvo, unsigned char ***matriz, int x_inicio, int y_inicio);
 
+/* sub_matriz original, matriz alvo, inicio da largura da matriz original, inicio da altura da matriz original */
+void sm_matriz_conversion(sub_matriz *matriz, unsigned char ***alvo, int x_inicio, int y_inicio);
+
 #endif
