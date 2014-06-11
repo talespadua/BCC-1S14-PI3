@@ -1,23 +1,16 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9) (preloaded format=pdflatex 2013.3.5)  11 JUN 2014 05:25
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.2.16)  11 JUN 2014 18:29
 entering extended mode
+ %&-line parsing enabled.
 **poster.tex
-(C:\Users\gabriel\uma-implementacao-jogo\poster.tex
-LaTeX2e <2011/06/27>
-Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
-abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
-croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, ga
-lician, german, german-x-2012-05-30, greek, gujarati, hindi, hungarian, iceland
-ic, indonesian, interlingua, irish, italian, kannada, kurmanji, latin, latvian,
- lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, n
-german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
-ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
-an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
-ishmax, welsh, loaded.
-(C:\Users\gabriel\uma-implementacao-jogo\sciposter.cls
+(./poster.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(./sciposter.cls
 Document Class: sciposter 2006/05/30 v1.17 scientific poster class (MHFW, AMW)
-("C:\Program Files (x86)\Miktex\tex\latex\base\article.cls"
+(/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-("C:\Program Files (x86)\Miktex\tex\latex\base\size10.clo"
+(/usr/share/texmf-texlive/tex/latex/base/size10.clo
 File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -32,13 +25,13 @@ File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("C:\Program Files (x86)\Miktex\tex\latex\base\ifthen.sty"
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 )
-("C:\Program Files (x86)\Miktex\tex\latex\lettrine\lettrine.sty"
-File: lettrine.sty 2013/03/14 v1.64 (Daniel Flipo)
+(/usr/share/texmf-texlive/tex/latex/lettrine/lettrine.sty
+File: lettrine.sty 2007/08/08 v1.62 (Daniel Flipo)
 
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\keyval.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
@@ -60,40 +53,33 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \LettrineWidth=\dimen114
 
 Loading lettrine.cfg
-("C:\Program Files (x86)\Miktex\tex\latex\lettrine\lettrine.cfg"))
+(/usr/share/texmf-texlive/tex/latex/lettrine/lettrine.cfg))
 \papermargin=\skip43
 
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\graphics.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\Miktex\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
-("C:\Program Files (x86)\Miktex\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-
-("C:\Program Files (x86)\Miktex\tex\generic\oberdiek\infwarerr.sty"
-Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
-)
-("C:\Program Files (x86)\Miktex\tex\generic\oberdiek\ltxcmds.sty"
-Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
-)
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count89
 ))
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\color.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-("C:\Program Files (x86)\Miktex\tex\latex\00miktex\color.cfg"
+(/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 )
-("C:\Program Files (x86)\Miktex\tex\latex\ltxmisc\shadow.sty"
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/shadow.sty
 Package: shadow 2003/02/19 v1.3 shadow boxes (M.O.)
 \txtwdth=\dimen115
 \sht=\dimen116
@@ -103,7 +89,7 @@ Package: shadow 2003/02/19 v1.3 shadow boxes (M.O.)
 \sboxrule=\dimen119
 \sdim=\dimen120
 )
-("C:\Program Files (x86)\Miktex\tex\latex\a0poster\a0size.sty"
+(/usr/share/texmf-texlive/tex/latex/a0poster/a0size.sty
 File: a0size.sty 2004/01/31 v1.22b a0poster class (GK, MW)
 LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 229.
 LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
@@ -112,10 +98,10 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 (Font)                  OMX/cmex/m/n --> OMX/cmex/m/n on input line 229.
 \big@size=\dimen121
 )
-("C:\Program Files (x86)\Miktex\tex\latex\psnfss\times.sty"
+(/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 )
-("C:\Program Files (x86)\Miktex\tex\latex\boxedminipage\boxedminipage.sty")
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/boxedminipage.sty)
 \titlewidth=\skip44
 \logowidth=\skip45
 \parstartskip=\skip46
@@ -128,14 +114,15 @@ Package: times 2005/04/12 PSNFSS-v9.2a (SPQR)
 \c@algorithm=\count91
 \secrulewidth=\skip52
 )
-("C:\Program Files (x86)\Miktex\tex\latex\lipsum\lipsum.sty"
-Package: lipsum 2011/04/14 v1.2 150 paragraphs of Lorem Ipsum dummy text
+(/usr/share/texmf-texlive/tex/latex/lipsum/lipsum.sty
+Package: lipsum 2005/01/26 v1.0 150 paragraphs of Lorem Ipsum dummy text
+File: lipsum.dtx 2005/01/26 v1.0 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count92
 )
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\epsfig.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
 
-("C:\Program Files (x86)\Miktex\tex\latex\graphics\graphicx.sty"
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 \Gin@req@height=\dimen122
 \Gin@req@width=\dimen123
@@ -143,24 +130,24 @@ Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 \epsfxsize=\dimen124
 \epsfysize=\dimen125
 )
-("C:\Program Files (x86)\Miktex\tex\latex\ams\math\amsmath.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip53
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\Miktex\tex\latex\ams\math\amstext.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\Miktex\tex\latex\ams\math\amsgen.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks15
 \ex@=\dimen126
 ))
-("C:\Program Files (x86)\Miktex\tex\latex\ams\math\amsbsy.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen127
 )
-("C:\Program Files (x86)\Miktex\tex\latex\ams\math\amsopn.sty"
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count93
@@ -201,18 +188,18 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-("C:\Program Files (x86)\Miktex\tex\latex\amsfonts\amssymb.sty"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2009/06/22 v3.00
 
-("C:\Program Files (x86)\Miktex\tex\latex\amsfonts\amsfonts.sty"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
 ))
-("C:\Program Files (x86)\Miktex\tex\latex\tools\multicol.sty"
-Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
+(/usr/share/texmf-texlive/tex/latex/tools/multicol.sty
+Package: multicol 2008/12/05 v1.6h multicolumn formatting (FMi)
 \c@tracingmulticols=\count105
 \mult@box=\box31
 \multicol@leftmargin=\dimen135
@@ -257,48 +244,46 @@ Package: multicol 2011/06/27 v1.7a multicolumn formatting (FMi)
 \multicolundershoot=\dimen142
 \mult@nat@firstbox=\box55
 \colbreak@box=\box56
-\multicol@sort@counter=\count113
 )
-("C:\Program Files (x86)\Miktex\tex\latex\ltxmisc\url.sty"
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-("C:\Program Files (x86)\Miktex\tex\generic\babel\babel.sty"
-Package: babel 2008/07/08 v3.8m The Babel package
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-*************************************
-* Local config file bblopts.cfg used
-*
-("C:\Program Files (x86)\Miktex\tex\latex\00miktex\bblopts.cfg"
-File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
-)
-("C:\Program Files (x86)\Miktex\tex\generic\babel\portuges.ldf"
+(/usr/share/texmf-texlive/tex/generic/babel/portuges.ldf
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 
-("C:\Program Files (x86)\Miktex\tex\generic\babel\babel.def"
-File: babel.def 2008/07/08 v3.8m Babel common definitions
-\babel@savecnt=\count114
+(/usr/share/texmf-texlive/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
+\babel@savecnt=\count113
 \U@D=\dimen143
 )
+
+Package babel Warning: No hyphenation patterns were loaded for
+(babel)                the language `Portuguese'
+(babel)                I will use the patterns loaded for \language=0 instead.
+
+\l@portuges = a dialect from \language0
 Package babel Info: Making " an active character on input line 145.
-)
-("C:\Program Files (x86)\Miktex\tex\generic\babel\portuges.ldf"
+) (/usr/share/texmf-texlive/tex/generic/babel/portuges.ldf
 Language: portuges 2008/03/18 v1.2q Portuguese support from the babel system
 \l@brazil = a dialect from \language\l@portuges 
 ))
-("C:\Program Files (x86)\Miktex\tex\latex\base\inputenc.sty"
+(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks20
 \inpenc@posthook=\toks21
 
-("C:\Program Files (x86)\Miktex\tex\latex\base\utf8.def"
+(/usr/share/texmf-texlive/tex/latex/base/utf8.def
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("C:\Program Files (x86)\Miktex\tex\latex\base\t1enc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -448,7 +433,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("C:\Program Files (x86)\Miktex\tex\latex\base\ot1enc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -479,7 +464,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("C:\Program Files (x86)\Miktex\tex\latex\base\omsenc.dfu"
+(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -503,254 +488,197 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-("C:\Program Files (x86)\Miktex\tex\latex\listings\listings.sty"
-\lst@mode=\count115
+(/usr/share/texmf-texlive/tex/latex/listings/listings.sty
+\lst@mode=\count114
 \lst@gtempboxa=\box57
 \lst@token=\toks22
-\lst@length=\count116
+\lst@length=\count115
 \lst@currlwidth=\dimen144
-\lst@column=\count117
-\lst@pos=\count118
+\lst@column=\count116
+\lst@pos=\count117
 \lst@lostspace=\dimen145
 \lst@width=\dimen146
-\lst@newlines=\count119
-\lst@lineno=\count120
+\lst@newlines=\count118
+\lst@lineno=\count119
 \lst@maxwidth=\dimen147
 
-("C:\Program Files (x86)\Miktex\tex\latex\listings\lstmisc.sty"
-File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
-\c@lstnumber=\count121
-\lst@skipnumbers=\count122
+(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
+\c@lstnumber=\count120
+\lst@skipnumbers=\count121
 \lst@framebox=\box58
 )
-("C:\Program Files (x86)\Miktex\tex\latex\listings\listings.cfg"
-File: listings.cfg 2014/03/04 1.5c listings configuration
+(/usr/share/texmf-texlive/tex/latex/listings/listings.cfg
+File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
-Package: listings 2014/03/04 1.5c (Carsten Heinz)
+Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-("C:\Program Files (x86)\Miktex\tex\latex\tools\indentfirst.sty"
+(/usr/share/texmf-texlive/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-("C:\Program Files (x86)\Miktex\tex\latex\listings\lstlang1.sty"
-File: lstlang1.sty 2014/03/04 1.5c listings language file
+(/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-("C:\Program Files (x86)\Miktex\tex\latex\listings\lstlang1.sty"
-File: lstlang1.sty 2014/03/04 1.5c listings language file
+(/usr/share/texmf-texlive/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-("C:\Program Files (x86)\Miktex\tex\latex\listings\lstmisc.sty"
-File: lstmisc.sty 2014/03/04 1.5c (Carsten Heinz)
+(/usr/share/texmf-texlive/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 )
-\c@Def=\count123
+\c@Def=\count122
+ (./poster.aux)
+\openout1 = `poster.aux'.
 
-(C:\Users\gabriel\uma-implementacao-jogo\poster.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 50.
 
-("C:\Program Files (x86)\Miktex\tex\latex\psnfss\ot1phv.fd"
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
-("C:\Program Files (x86)\Miktex\tex\context\base\supp-pdf.mkii"
+(/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count124
+\scratchcounter=\count123
 \scratchdimen=\dimen148
 \scratchbox=\box59
-\nofMPsegments=\count125
-\nofMParguments=\count126
+\nofMPsegments=\count124
+\nofMParguments=\count125
 \everyMPshowfont=\toks23
-\MPscratchCnt=\count127
+\MPscratchCnt=\count126
 \MPscratchDim=\dimen149
-\MPnumerator=\count128
-\makeMPintoPDFobject=\count129
+\MPnumerator=\count127
 \everyMPtoPDFconversion=\toks24
 )
 -- Paper type set to a0.
 \GPT@outputbox=\box60
-\c@lstlisting=\count130
+\c@lstlisting=\count128
 <Senac-logo.jpg, id=1, 1606.0pt x 941.5175pt>
 File: Senac-logo.jpg Graphic file (type jpg)
  <use Senac-logo.jpg>
-Package pdftex.def Info: Senac-logo.jpg used on input line 70.
-(pdftex.def)             Requested size: 1605.99611pt x 941.51521pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 70.
+LaTeX Font Info:    Try loading font information for U+msa on input line 68.
 
-("C:\Program Files (x86)\Miktex\tex\latex\amsfonts\umsa.fd"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 70.
+LaTeX Font Info:    Try loading font information for U+msb on input line 68.
 
-("C:\Program Files (x86)\Miktex\tex\latex\amsfonts\umsb.fd"
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <89.16> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 70.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 68.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <43> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 70.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 70.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 68.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 68.
 
-("C:\Program Files (x86)\Miktex\tex\latex\psnfss\ot1pcr.fd"
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-<Ecomp-logo.jpg, id=2, 439.6425pt x 527.9725pt>
-File: Ecomp-logo.jpg Graphic file (type jpg)
- <use Ecomp-logo.jpg>
-Package pdftex.def Info: Ecomp-logo.jpg used on input line 70.
-(pdftex.def)             Requested size: 439.64142pt x 527.9712pt.
-
-Overfull \hbox (10.54907pt too wide) in paragraph at lines 70--71
+<respect_cube.jpg, id=2, 778.91pt x 902.37125pt>
+File: respect_cube.jpg Graphic file (type jpg)
+ <use respect_cube.jpg>
+Overfull \hbox (10.54907pt too wide) in paragraph at lines 68--69
 []$[]$  $[]$$[]$
  []
 
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 76.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <24.88> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 76.
-
-Underfull \hbox (badness 10000) in paragraph at lines 107--113
-
- []
-
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 74.
 <img4.png, id=3, 417.56pt x 262.9825pt>
 File: img4.png Graphic file (type png)
  <use img4.png>
-Package pdftex.def Info: img4.png used on input line 116.
-(pdftex.def)             Requested size: 578.15999pt x 364.18025pt.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.120 \\
-        
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! LaTeX Error: There's no line here to end.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.121 
-      
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
 <img2.jpg, id=4, 1283.79625pt x 481.8pt>
 File: img2.jpg Graphic file (type jpg)
  <use img2.jpg>
-Package pdftex.def Info: img2.jpg used on input line 127.
-(pdftex.def)             Requested size: 578.15999pt x 216.98442pt.
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+
+ []
 
 
-LaTeX Warning: Citation `Limiar' on page 1 undefined on input line 144.
+Underfull \hbox (badness 10000) in paragraph at lines 137--138
 
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 153.
+ []
 
-("C:\Program Files (x86)\Miktex\tex\latex\psnfss\omsphv.fd"
+
+Underfull \hbox (badness 10000) in paragraph at lines 176--177
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
+
+ []
+
+
+LaTeX Warning: Citation `Nacken:thesis' on page 1 undefined on input line 188.
+
+LaTeX Font Info:    Try loading font information for OMS+phv on input line 194.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omsphv.fd
 File: omsphv.fd 
 )
 LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <24.88> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 153.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 194.
 
-<normal.jpg, id=5, 1084.05pt x 722.7pt>
-File: normal.jpg Graphic file (type jpg)
- <use normal.jpg>
-Package pdftex.def Info: normal.jpg used on input line 164.
-(pdftex.def)             Requested size: 216.81pt x 144.53743pt.
-
-<cinza.jpg, id=6, 1084.05pt x 722.7pt>
-File: cinza.jpg Graphic file (type jpg)
- <use cinza.jpg>
-Package pdftex.def Info: cinza.jpg used on input line 164.
-(pdftex.def)             Requested size: 216.81pt x 144.53743pt.
-LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <29.86> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 192.
-
-Underfull \hbox (badness 6063) in paragraph at lines 211--214
-[]\OT1/phv/m/n/24.88 Suponhamos que te-nha-mos lo-ca-li-zado o ponto
- []
-
-<figura7.pdf, id=7, 361.35pt x 252.945pt>
-File: figura7.pdf Graphic file (type pdf)
- <use figura7.pdf>
-Package pdftex.def Info: figura7.pdf used on input line 220.
-(pdftex.def)             Requested size: 361.34912pt x 252.94438pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--232
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
+Underfull \hbox (badness 10000) in paragraph at lines 225--226
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 270--271
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--282
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 286--295
+Underfull \hbox (badness 10000) in paragraph at lines 236--237
 
  []
 
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 332.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 239.
 [1
 
-{C:/Users/gabriel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/
-gabriel/uma-implementacao-jogo/Senac-logo.jpg> <C:/Users/gabriel/uma-implementa
-cao-jogo/Ecomp-logo.jpg> <C:/Users/gabriel/uma-implementacao-jogo/img4.png> <C:
-/Users/gabriel/uma-implementacao-jogo/img2.jpg> <C:/Users/gabriel/uma-implement
-acao-jogo/normal.jpg> <C:/Users/gabriel/uma-implementacao-jogo/cinza.jpg> <C:/U
-sers/gabriel/uma-implementacao-jogo/figura7.pdf>]
-(C:\Users\gabriel\uma-implementacao-jogo\poster.aux)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Senac-logo.jpg> <./respe
+ct_cube.jpg> <./img4.png (PNG copy)> <./img2.jpg>]
+Underfull \hbox (badness 10000) in paragraph at lines 241--250
+
+ []
+
+[2] (./poster.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 4897 strings out of 493921
- 66720 string characters out of 3146475
- 314650 words of memory out of 3000000
- 8078 multiletter control sequences out of 15000+200000
- 31109 words of font info for 72 fonts, out of 3000000 for 9000
- 841 hyphenation exceptions out of 8191
- 33i,13n,58p,395b,435s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/Miktex/fonts/enc/dvips/fontname/8r.enc}<C:/Program Fi
-les (x86)/Miktex/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Files (x
-86)/Miktex/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files (x86)/Mi
-ktex/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/Miktex/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files (x86)/Miktex/fonts/ty
-pe1/urw/courier/ucrr8a.pfb><C:/Program Files (x86)/Miktex/fonts/type1/urw/helve
-tic/uhvb8a.pfb><C:/Program Files (x86)/Miktex/fonts/type1/urw/helvetic/uhvr8a.p
-fb><C:/Program Files (x86)/Miktex/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on poster.pdf (1 page, 1219507 bytes).
+ 4637 strings out of 495061
+ 61838 string characters out of 1182621
+ 264050 words of memory out of 3000000
+ 7715 multiletter control sequences out of 15000+50000
+ 29476 words of font info for 70 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 33i,8n,58p,699b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
+ve/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/ty
+pe1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/
+amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
+hare/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texliv
+e/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
+/helvetic/uhvro8a.pfb>
+Output written on poster.pdf (2 pages, 312365 bytes).
 PDF statistics:
- 58 PDF objects out of 1000 (max. 8388607)
+ 46 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

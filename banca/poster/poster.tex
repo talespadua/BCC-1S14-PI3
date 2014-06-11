@@ -22,10 +22,10 @@
 \newtheorem{Def}{Definition}
 
 
-\title{Uma implementação do jogo Pedra, Papel e Tesoura utilizando Visão Computacional}
+\title{Mini Games com \\ Visão Computacional}
 %Título do projeto
 
-\author{Ezequiel França dos Santos, Gabriel Fontenelle Senno Silva}
+\author{Gabriel Vieira Figueiredo Tomaz, Tales Carlos de Pádua, Vinicius de Carvalho}
 
 \institute
 {Bacharelado em Ciência da Computação\\
@@ -40,19 +40,17 @@ Centro Universitário SENAC - Campus Santo Amaro
 
 %\date is unused by the current \maketitle
 
-\rightlogo[1]{Ecomp-logo}
+\rightlogo[1]{respect_cube}
 \leftlogo[1]{Senac-logo}
 % Exibe os logos (direita e esquerda)
 % Procure usar arquivos png ou jpg, e de preferencia mantenha na mesma pasta do .tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Begin of Document
 
-
-
 \begin{document}
 %define conference poster is presented at (appears as footer)
 
-\conference{{\bf BCC 15 anos}, 5º Projeto Integrador III - 15 anos do Bacharelado em Ciência da Computação, Senac, 27 de Novembro de 2013, São Paulo, Brasil}
+\conference{{\bf BCC 15 anos}, 5º Projeto Integrador III - 15 anos do Bacharelado em Ciência da Computação, Senac, 06 de Junho de 2014, São Paulo, Brasil}
 
 %\LEFTSIDEfootlogo 
 % Uncomment to put footer logo on left side, and
@@ -74,101 +72,70 @@ Centro Universitário SENAC - Campus Santo Amaro
 
 %%% Abstract
 \begin{abstract}
-Este projeto consiste em 2 jogos controlados por aglortimos de Visão Computacial  Diferetnes. Um dos jogos tem como base a identificação das cores primarias e o outro em uma rustica detecção de face atraves de uma detecção de bordas sobre a imagem.
-
+O projeto consiste em 2 jogos controlados por algoritmos de visão computacional, sendo que um deles tem a base voltada para identificação de cores primárias e o outro uma rústica detecção de face por meio de bordas e padrões de rosto.
 \end{abstract}
 
 %%% Introduction
 \section{Introducão}
-Jogos interativos tem sido uma grande area a ser explorada a medida que a tecnologia e as formas de fazer jogos avançam. A partir disso e buscando uma interação com a camera , chegamos ao nosso 
-trabalho ,  que tem como foco criar jogos que posibilitem uma interação agradavel com a camera , sendo ela um dispositivo essecial para a jogabilidade e a ate para a diversao do ususario , de forma que ela nao atrapalhe ou se torne algo discartavel para o jogador.
+Jogos interativos tem sido uma grande área a ser explorada à medida que a tecnologia e as formas de se produzir jogos avançam. A partir disso, aliando-se do que a visão computacional tem a oferecer como ferramenta para a interface entre o humano e o computador, tem-se que este trabalho soma esses conceitos para criar uma jogabilidade diferente baseada interamente em câmeras de vídeo, de modo que este novo meio de interação intensifique a experiência do usuário.
 
 \newcommand{\imsize}{0.45\columnwidth}
 
 
-
-
 \section{Objetivos}
-Nesse projeto tivemos 2 objetivos diferentes a serem alcançados nos 2 jogos que criamos. 
+Visando abordar uma maior quantidade de conhecimentos na área de visão computacional, o grupo tomou como estratégia a criação de dois jogos com interfaces diferentes, um baseado na detecção de cores e o outro baseado na detecção de faces.
 
-Para o primeiro jogo , o principal objetivo era reconhecer com precisão 4 cores , verde , amarelo , vermelho e azul , assim conseguimos estruturar o classico jogo genius baseado nas imagens reconhecidas pela camera.
+Para o primeiro jogo, o principal objetivo era reconhecer com precisão 4 cores básicas: verde, amarelo, azul e vermelho. Com isto, foi possível estruturar o clássico jogo genius, que se basea em reconhecer estas cores descritas para validação de uma sequência correta de cores que o usuário deverá apresentar em frente à câmera.
 
-O segundo jogo ja foi algo pouco mais complexo pois envolveu mais algoritimos como detecções de borda , e alguns filtros , e tem como objetivo uma rustica detecção de face , baseada nas bordas 
-que podem ser reconhecidas na face como boca e os olhos , provendo um reconhecimento eficiente e com alguma precisão.
+O segundo jogo, um pouco mais complexo, envolve manipular as imagens vindas da câmera com o intuito de simplificar o que se está captando, sendo que, neste contexto, simplificar possibilita a detecção de certos padrões, como os de um rosto. Com o reconhecimento da face, o jogo se basea em um personagem dentro de um caminhão de sorvete utilizando o rosto para atender os pedidos de certos clientes.
 
 \section{Metodologia}
-Para o inicio do trabalho fomos introduzidos a uma mini biblioteca , baseada em OpemCV que seria a nossa unica ferramenta de acesso a camera e ao tratamento das imagens , sendo ela bem simples
-a maior parte do trabalho de tratamento e reconhecimento nas imagens foi feito por nos mesmos. A biblioteca nos disponibilizou basicamente funções de acesso a imagem da camera , sendo a que
-principal delas era a que capturava a imagem da camera e a transformava em uma matriz tridimensional onde as colunas x e y representavam cada pixel da imagem e dentro de cada x e y existiam 3 
-campos que sao respectivamente os componetes R (vermelho) G (verde) e B(azul) de cada pixel .
+No início do trabalho foi introduzido uma biblioteca, baseada em OpenCV, que faz a interface de acesso à câmera de maneira bem restrita, possibilitando apenas que houvesse contato com os quadros capturados da câmera fornecidos por uma matriz tridimensional onde a primeira dimensão é a altura (em pixels) da imagem, a segunda representa a largura (também em pixels) e a terceira são os componentes vermelho (red), verde (green) e azul (blue), respectivamente, do espaço de cores RGB. Todos os valores da matriz representam um número entre 0 e 255 do padrão RGB.
 
-\subsubsection*{Jogo Genius}
+\subsubsection*{Jogo: Genius}
 
-A Principal ideia do reconhecimento das cores desse jogo foi baseada na basica detecção de vermelho , onde verificamos se o componente R do pixel é maior que a soma dos outros dois G e B.
-Esse metodo funciona bem para o vermelho , porem uma variante dele para as outras cores que precisavamos detectar nao funcionou muito bem ,devido a pequenas mudanças de luz  e algumas interferencias , entao tivemos que partir para alguma outra soluçao.
-Depois de pesquisar  , concluimos que mudando o espaço de cor R B G para o H S V, onde o H representa a cor em si , o S a saturação dessa cor e o V o brilho , com esse espaço de cor , diferente do RGB , conseguimos definir claramente um range para cada tipo de cor , podendo filtrar com sucesso as cores que nos desejavamos.
-\\
-\\
-O algoritmo usado para a Conversão
+A principal ideia do reconhecimento das cores desse jogo foi o reconhecimento básico da cor vermelha, onde caso fosse verificado que o componente R da matriz fosse maior que a soma dos outros dois componentes, se tratava claramente da cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, as outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz, sendo necessário buscar algo mais sofisticado.
+Após orientação e pesquisa surgiu a ideia de utilizar o espaço de cor HSV, onde H representa a cor propriamente dita, S a sua saturação e V o seu brilho. Com esta separação, ao contrário do que acontece no espaço RGB, pode-se facilmente determinar escopos (ranges) para cada cor, possibilitando assim uma filtragem mais precisa das cores desejadas.
+
+A conversão do espaço de cor pode ser dada por:
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=8in]{img4.png}
 \end{figure}
 
-\\
-\\
 
-
-Um Exemplo de resultado com Azul
+Um exemplo de resultado com a detecção da cor azul:
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=8in]{img2.jpg}
 \end{figure}
 
+\subsubsection*{Jogo: Sorvete Hoje?}
 
-\subsubsection*{Jogo do Vini}
+A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção bastante consistente de borda e, por consequência, uma boa detecção de face. Estudando formas de se detectar objetos de formato específico (como círculos, quadrados, etc) surgiu o principal algoritmo utilizado, o Filtro de Sobel, que será explicado mais adiante.
 
+Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem para delimitar bem. A técnica utilizada é conhecida como algoritmo de Otsu e também será descrita em um tópico seguinte.
 
+Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto que a manipulação de quadros da câmera pode ser um processo bastante custoso, o que gera uma experiência ruim para o usuário. Visando um modo de se otimizar este processo, antes de se aplicar o algoritmo do filtro foi utilizada uma conversão da imagem para escala de cinza, cujos benefícios serão descritos à seguir.
 
+Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros.
 
+\subsubsection{Escala de Cinza}
 
-\subsubsection{Binarização da imagem}
+O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar os componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. \\
 
-Existem diversos algoritmos para binarização de imagens, dentre a lista de soluções para este  o algoritmo de Otsu, por ser de fácil implementação e apresentar resultados satisfatórios nos experimentos realizados.
+\begin{center}{A fórmula para o cálculo acima é dada por:}
+$greyscale = \frac{R + G + B}{3}$ 
+\end{center} \ \ 
 
-O método de Otsu é um método de \textit{thresholding} global, isto é, o valor obtido é
-uma constante, para escolha do melhor limiar. A base deste método é sua interpretação
-do histograma como como uma função de densidade de probabilidade
-discreta \cite{Limiar}, da seguinte maneira:
+Aplicando o valor de greyscale para as três componentes de cor, tem-se uma imagem descolorida cujos tons de cinza são aproximações das cores da imagem original. Com isso, pode-se aplicar os algoritmos seguintes com apenas um dos valores de R, G ou B e replicar o resultado nos demais, visto que são todos iguais, diminuindo assim a quantidade de processamento.
 
-\begin{equation}\label{eq:histograma_norm}
-  p_r(r_q) = \frac{n_q}{n}, q = 0, 1, 2, ..., L-1
-\end{equation}
+\subsubsection{Filtro de Sobel}
 
-Onde:
+O Filtro de Sobel calcula o gradiente da intensidade da imagem em cada ponto, dando a direção da maior variação de claro para escuro e a quantidade de variação nessa direção por meio de duas matrizes quadradas de ordem 3, que são convoluídas com a imagem original para calcular aproximações das derivadas. Uma das matrizes representa a variação horizontal $Gx$ e a outra é a vertical $Gy$. \\
 
-\begin{itemize}
-  \item $ n $ é o total de \textit{pixels} da imagem;
-  \item $ n_q $ é o total de \textit{piixels} que tem intensidade $ r_q $ e
-  \item $ L $ é o total de níveis de intensidade na imagem.
-\end{itemize}
-
-O resultado da binarização com limiar ajustado segundo o método de Otsu pode
-ser observado na Figura \ref{fig:bin_otsu}
-
-\begin{figure}[ht]
-\centering
-\mbox{\subfigure{\includegraphics[width=3in]{normal.jpg}}\quad
-\subfigure{\includegraphics[width=3in]{cinza.jpg} }}
-\caption{ Imagem binarizada com limiar definito pelo método de Otsu. }
-\label{fig:bin_otsu}
-\end{figure}
-
-\subsubsection*{Detecção de bordas com filtro Sobel}
-
-O filtro Sobel calcula o gradiente da intensidade da imagem em cada ponto, dando a direcção da maior variação de claro para escuro e a quantidade de variação nessa direcção, através de duas matrizes 3x3, que são convoluídas com a imagem original para calcular aproximações das derivadas - uma para as variações horizontais $Gx$ e uma para as verticais $Gy$.
 \begin{center}{Máscara de Sobel 3x3}
 $$
 Gx=\left[\begin{array}{rrr}
@@ -183,48 +150,36 @@ Gy=\left[\begin{array}{ccc}
 \end{array}\right]
 $$
 \end{center}
-A magnitude do gradiente é dado por:
+
+E a partir disto, calcula-se a magnitude do gradiente:
 
 $$
 |G|=\sqrt{Gx^2 + Gy^2}
 $$	
 
-\subsection*{Reconhecimento dos padrões}
-\subsubsection*{Determinação do fecho convexo}
+A variação de claro para escuro indica a presença de uma borda e com este gradiente aplicado nos canais RGB tem-se uma imagem composta apenas pelas bordas dos objetos que a compõem. Como a imagem utilizada está em escala de cinza, o resultado é uma imagem composta de bordas claras (próximas ao branco) com massas escuras (que tendem ao preto).
 
+\subsubsection{Binarização da imagem}
 
-\bigskip
-\subsubsection*{Algortimo da embrulho de presente}
+Apesar dos diversos algoritmos para binarização de imagem, como os quadros que estão sendo trabalhados já estão bastante simplificados neste ponto, uma implementação baseada no algoritmo de Otsu é suficiente para atingir o objetivo de itensificar as bordas obtidas no Filtro de Sobel.
 
-\begin{itemize}
+A ideia geral do método de Otsu é ter um valor limite onde se atribui a cor branca para os pixels que possuírem o canal RGB acima deste limite e preto para os que estiverem abaixo do mesmo. Essa limítrofe em geral é calculada a partir de fórmulas que utilizam a imagem para definir qual seria o valor mais adequado, entretanto, para a imagem com bordas, pode-se definir um valor constante e simplificar todo o processo.
 
-\item O {\em algoritmo da marcha de Jarvis}, popularmente conhecido como {\em gift
-wrapping algorithm / algoritmo do embrulho de presente} , visita os pontos do fecho convexo de maneira ordenada.
+\subsubsection{Remoção de fundo com Distância Euclidiana}
 
-\begin{enumerate}
+TODO TERMINAR AQUI
 
-\item Começamos com qualquer ponto do fecho. O ponto com maior coordenada em x é uma escolha natural. Chamamos esse ponto de $(X_0, Y_0)$.
+Quando se quer ignorar o fundo de um determinado cenário, pode-se aplicar a distância entre dois pontos definida por Euclides como <inserir a fórmula da distância euclidiana> comparando uma imagem que é composta apenas pelo fundo do cenário (que pode ser obtida a partir do primeiro quadro da câmera) com a imagem com que se deseja trabalhar (as demais imagens).
+Este método é também bastante simples, porém resolve de maneira eficiente a intervenção de objetos no cenário que possam confundir os algoritmos citados a cima.
 
-\item Varremos ("marchamos") através de todos os pontos $(X_i, Y_i)$ e localizamos o ponto tal que o ângulo a partir da coordenada $(1,0)$ para $(X_i - X_0, Y_i - Y_0)$ é minímo.
-TEste é o próximo ponto de sentido anti-horário a partir de $(X_0,Y_0)$ no fecho, chamamos-o de $(X_1, Y_1)$.
+\subsubsection{Detecção de rosto}
+O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem definidas composta apenas pelo que não faz parte do cenário capturado pela câmera, ou seja, na grande parte dos casos haverá apenas a borda detalhada do jogador. \\
 
-\item Suponhamos que tenhamos localizado o ponto $(X_i,Y_i)$, $i=1, \ldots, m$ que ocorrem no sentido anti-horário ao fecho onde $m \ge 2$.
-Calculamos todos os ângulos entre os vetores $(X_i - X_m, Y_i - Y_m)$ e
-$(X_{m-1} - X_m, Y_{m-1} - Y_m)$, e procuramos o ponto $i$ que tenha o menor âgulo positivo.  Adicionamos este ponto ao fecho.
+Exemplo de resultado dos algoritmos descritos:
 
-\item Retornarmos a etapa 3 até que $(X_m,Y_m) = (X_0,Y_0)$.
+INSERIR IMAGEM AQUI
 
-\end{enumerate}
-
-\begin{center}
-\scalebox{.7}{\includegraphics{figura7.pdf}}
-\end{center}
-
-\item O algoritmo de marcha Jarvis tem no pior caso complexidade O($n^2$), o que ocorre se todos os pontos estão no fecho. Em geral, se $h$ pontos estã no fecho, a complexidade é O($nh$).
-
-
-\end{itemize}
-
+À esquerda está a imagem original da câmera com exceção de uma pequena modificação no item 1, que é um retângulo vermelho indicando onde está a face do jogador. O item 2 representa a face do jogador em escala de cinza antes de ser aplicado o Filtro de Sobel, e o item 3 representa o mesmo após a aplicação do filtro e da binarização simples. O item 4 representa uma máscara que indica o local onde espera-se que o usuário posicione o rosto. Dentro das regiões coloridas compara-se a imagem tratada com valores esperados para um rosto humano (como muitos pixels brancos para os olhos e a boca, mas poucos para a face visto que não há muitas bordas na mesma).
 
 \section{Resultados e Discussão}
 
@@ -300,33 +255,39 @@ Makes him insane to know
 \bibliographystyle{plain}
 \begin{thebibliography}{1}
 
-\bibitem{Flusser:Suk:93}
-J.~Flusser and T.~Suk.
-\newblock Pattern recognition by affine moment invariants.
-\newblock {\em Pattern Recognition}, 26:167--174, 1993.
+%\bibitem{Flusser:Suk:93}
+%J.~Flusser and T.~Suk.
+%\newblock Pattern recognition by affine moment invariants.
+%\newblock {\em Pattern Recognition}, 26:167--174, 1993.
 
-\bibitem{Hu:62}
-M.~K. Hu.
-\newblock Visual pattern recognition by moment invariants.
-\newblock {\em IRE Transactions on Information Theory}, IT-8:179--187, 1962.
+%\bibitem{Hu:62}
+%M.~K. Hu.
+%\newblock Visual pattern recognition by moment invariants.
+%\newblock {\em IRE Transactions on Information Theory}, IT-8:179--187, 1962.
 
-\bibitem{maragos89:_patter}
-P.~Maragos.
-\newblock Pattern spectrum and multiscale shape representation.
-\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 11:701--715, 1989.
+%\bibitem{maragos89:_patter}
+%P.~Maragos.
+%\newblock Pattern spectrum and multiscale shape representation.
+%\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 11:701--715, 1989.
 
-\bibitem{Meijster:Wilkinson:PAMI}
-A.~Meijster and M.~H.~F. Wilkinson.
-\newblock A comparison of algorithms for connected set openings and closings.
-\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 24(4):484--494, 2002.
+%\bibitem{Meijster:Wilkinson:PAMI}
+%A.~Meijster and M.~H.~F. Wilkinson.
+%\newblock A comparison of algorithms for connected set openings and closings.
+%\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 24(4):484--494, 2002.
 
-\bibitem{Nacken:thesis}
-P.~F.~M. Nacken.
-\newblock {\em Image Analysis Methods Based on Hierarchies of Graphs and
-  Multi-Scale Mathematical Morphology}.
-\newblock PhD thesis, University of Amsterdam, Amsterdam, The Netherlands,
-  1994.
-
+%\bibitem{Nacken:thesis}
+%P.~F.~M. Nacken.
+%\newblock {\em Image Analysis Methods Based on Hierarchies of Graphs and
+%  Multi-Scale Mathematical Morphology}.
+%\newblock PhD thesis, University of Amsterdam, Amsterdam, The Netherlands,
+%  1994.
+  
+%referencia do sobel
+\bibitem{Sobel1968}
+{SOBEL, Irvin}
+\newblock A 3x3 isotropic gradient operator for image processing.
+\newblock Never published but presented at a talk at the Stanford Artificial
+  Project, 1968.
 \end{thebibliography}
 
 \end{multicols}
