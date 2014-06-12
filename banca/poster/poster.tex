@@ -34,7 +34,7 @@ Centro Universitário SENAC - Campus Santo Amaro
   Av. Engenheiro Eusébio Stevaux, 823 -- Santo Amaro, São Paulo -- CEP 04696-000 -- SP -- Brasil}
 %Nome e endereço da Instituição
 
-\email{{ezefranca.br,colecionador.gabriel},{(@gmail.com})}
+\email{vieira\_frifri@hotmail.com, talescpadua@gmail.com, carvalho.v@outlook.com}
 % Onde você coloca os emails dos integrantes
 
 
@@ -85,7 +85,7 @@ Jogos interativos tem sido uma grande área a ser explorada à medida que a tecn
 \section{Objetivos}
 Visando abordar uma maior quantidade de conhecimentos na área de visão computacional, o grupo tomou como estratégia a criação de dois jogos com interfaces diferentes, um baseado na detecção de cores e o outro baseado na detecção de faces.
 
-Para o primeiro jogo, o principal objetivo era reconhecer com precisão 4 cores básicas: verde, amarelo, azul e vermelho. Com isto, foi possível estruturar o clássico jogo genius, que se basea em reconhecer estas cores descritas para validação de uma sequência correta de cores que o usuário deverá apresentar em frente à câmera.
+Para o primeiro jogo, o principal objetivo era reconhecer com precisão 4 cores básicas: verde, amarelo, azul e vermelho, de modo a estruturar o clássico jogo \textit{Genius}, que se basea em reconhecer estas cores descritas para validação de uma sequência correta de cores que o usuário deverá apresentar em frente à câmera.
 
 O segundo jogo, um pouco mais complexo, envolve manipular as imagens vindas da câmera com o intuito de simplificar o que se está captando, sendo que, neste contexto, simplificar possibilita a detecção de certos padrões, como os de um rosto. Com o reconhecimento da face, o jogo se basea em um personagem dentro de um caminhão de sorvete utilizando o rosto para atender os pedidos de certos clientes.
 
@@ -94,8 +94,9 @@ No início do trabalho foi introduzido uma biblioteca, baseada em OpenCV, que fa
 
 \subsubsection*{Jogo: Genius}
 
-A principal ideia do reconhecimento das cores desse jogo foi o reconhecimento básico da cor vermelha, onde caso fosse verificado que o componente R da matriz fosse maior que a soma dos outros dois componentes, se tratava claramente da cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, as outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz, sendo necessário buscar algo mais sofisticado.
-Após orientação e pesquisa surgiu a ideia de utilizar o espaço de cor HSV, onde H representa a cor propriamente dita, S a sua saturação e V o seu brilho. Com esta separação, ao contrário do que acontece no espaço RGB, pode-se facilmente determinar escopos (ranges) para cada cor, possibilitando assim uma filtragem mais precisa das cores desejadas.
+A principal ideia do reconhecimento das cores desse jogo foi o reconhecimento básico da cor vermelha, onde caso fosse verificado que o componente R da matriz fosse maior que a soma dos outros dois componentes, se tratava claramente da cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, as outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz, sendo necessário buscar algo mais sofisticado, como a utilização do espaço de cor HSV.
+
+\subsubsection{Conversão de espaço de cor RGB para HSV}
 
 A conversão do espaço de cor pode ser dada por:
 
@@ -104,33 +105,19 @@ A conversão do espaço de cor pode ser dada por:
 \includegraphics[width=8in]{img4.png}
 \end{figure}
 
-
-Um exemplo de resultado com a detecção da cor azul:
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=8in]{img2.jpg}
-\end{figure}
+Neste espaço, cada ponto é representado por um conjunto HSV onde a componente H representa a cor propriamente dita, S a sua saturação e V o seu brilho. Com esta separação, ao contrário do que acontece no espaço RGB, pode-se facilmente determinar escopos (ranges) para cada cor, possibilitando assim uma filtragem mais precisa das cores desejadas.
 
 \subsubsection*{Jogo: Sorvete Hoje?}
 
-A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção bastante consistente de borda e, por consequência, uma boa detecção de face. Estudando formas de se detectar objetos de formato específico (como círculos, quadrados, etc) surgiu o principal algoritmo utilizado, o Filtro de Sobel, que será explicado mais adiante.
+A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção de borda, que foi a base para a detecção de face. A detecção desta borda é feita por meio do Filtro de Sobel, que será explicado mais adiante. Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem. A técnica utilizada é conhecida como algoritmo de Otsu.
 
-Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem para delimitar bem. A técnica utilizada é conhecida como algoritmo de Otsu e também será descrita em um tópico seguinte.
-
-Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto que a manipulação de quadros da câmera pode ser um processo bastante custoso, o que gera uma experiência ruim para o usuário. Visando um modo de se otimizar este processo, antes de se aplicar o algoritmo do filtro foi utilizada uma conversão da imagem para escala de cinza, cujos benefícios serão descritos à seguir.
+Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto que a manipulação de quadros da câmera pode ser um processo bastante custoso, o que gera uma experiência ruim para o usuário. Visando um modo de se otimizar este processo, antes de se aplicar o algoritmo do filtro foi utilizada uma conversão da imagem para escala de cinza.
 
 Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros.
 
 \subsubsection{Escala de Cinza}
 
-O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar os componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. \\
-
-\begin{center}{A fórmula para o cálculo acima é dada por:}
-$greyscale = \frac{R + G + B}{3}$ 
-\end{center} \ \ 
-
-Aplicando o valor de greyscale para as três componentes de cor, tem-se uma imagem descolorida cujos tons de cinza são aproximações das cores da imagem original. Com isso, pode-se aplicar os algoritmos seguintes com apenas um dos valores de R, G ou B e replicar o resultado nos demais, visto que são todos iguais, diminuindo assim a quantidade de processamento.
+O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar as componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. Isto faz com que a imagem se torne descolorida com tons de cinza que são aproximações das cores da imagem original. Como as três componentes da terceira dimensão da matriz serão iguais, basta aplicar os algoritmos seguintes para apenas uma delas e replicar os resultados às demais, diminuindo assim a quantidade de processamento.
 
 \subsubsection{Filtro de Sobel}
 
@@ -167,86 +154,34 @@ A ideia geral do método de Otsu é ter um valor limite onde se atribui a cor br
 
 \subsubsection{Remoção de fundo com Distância Euclidiana}
 
-TODO TERMINAR AQUI
-
-Quando se quer ignorar o fundo de um determinado cenário, pode-se aplicar a distância entre dois pontos definida por Euclides como <inserir a fórmula da distância euclidiana> comparando uma imagem que é composta apenas pelo fundo do cenário (que pode ser obtida a partir do primeiro quadro da câmera) com a imagem com que se deseja trabalhar (as demais imagens).
-Este método é também bastante simples, porém resolve de maneira eficiente a intervenção de objetos no cenário que possam confundir os algoritmos citados a cima.
+Quando se quer ignorar o fundo de um determinado cenário, pode-se aplicar a distância entre dois pontos definida por Euclides como $dist(p, q) = \sqrt{p^2 - q^2}$ onde p e q são pontos com cordenadas $p_{1}, p_{2}, ... p_{n}$ e $q_{1}, q_{2}, ... q_{n}$. Capturando um quadro da câmera onde não há nada além do fundo do cenário, basta iterar entre todos os pontos (pixels) p deste quadro e os pontos q do quadro que se deseja remover o fundo. O resultado é uma imagem que exclui, de maneira simples, os elementos do cenário.
 
 \subsubsection{Detecção de rosto}
-O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem definidas composta apenas pelo que não faz parte do cenário capturado pela câmera, ou seja, na grande parte dos casos haverá apenas a borda detalhada do jogador. \\
-
-Exemplo de resultado dos algoritmos descritos:
-
-INSERIR IMAGEM AQUI
-
-À esquerda está a imagem original da câmera com exceção de uma pequena modificação no item 1, que é um retângulo vermelho indicando onde está a face do jogador. O item 2 representa a face do jogador em escala de cinza antes de ser aplicado o Filtro de Sobel, e o item 3 representa o mesmo após a aplicação do filtro e da binarização simples. O item 4 representa uma máscara que indica o local onde espera-se que o usuário posicione o rosto. Dentro das regiões coloridas compara-se a imagem tratada com valores esperados para um rosto humano (como muitos pixels brancos para os olhos e a boca, mas poucos para a face visto que não há muitas bordas na mesma).
+O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem definidas composta apenas pelo que não faz parte do cenário capturado pela câmera, ou seja, na grande parte dos casos haverá apenas a borda detalhada do jogador. O usuário é então instruído a posicionar seu rosto em um local específico onde é feito o reconhecimento facial, baseando-se no fato de que são esperados muitos pixels brancos para os olhos e a boca, mas poucos para a face visto que não há muitas bordas na mesma.
 
 \section{Resultados e Discussão}
 
-Verificar os principais resultados obtidos de acordo com os objetivos propostos.\\
+Como resultado da conversão do espaço de cores HSV, a detecção das cores propostas ficou bastante consistente e permitiu a criação do jogo \textit{Genius} com sucesso, deixando apenas a necessidade de se aprender a trabalhar com o novo espaço de cor visto que ele pode não ser de aprendizado tão imediato quanto o RGB. Um exemplo de resultado com a detecção da cor azul:
 
-Genius :
-
-Com a pesquisa e aplicação do metodo de conversao do espaço de cor conseguimos objeter grandes resultados com um algoritmo relativamente simples , e sem a aplicação de algum filtro 
-o que nos forneceu uma detecção precisa de cores , para a realização deste jogo 
-\begin{itemize}
-\item Set all elements of array {\tt S} to zero
-\item For all $x \in X$ increment {\tt S}[$\Omega_X(x)$] by one.
-\end{itemize}
-
-To compute the pattern \emph{moment} spectrum, the only thing that needs to be
-changed is the way {\tt S}[$\Omega_X(x)$] is incremented. As shown in Algorithm
-\ref{alg:spect}.
-
-\begin{algorithm}
-\begin{itemize}
-\item Set all elements of array {\tt S} to zero
-\item For all $(x,y) \in X$ increment {\tt S}[$\Omega_X(x,y)$] by
-$x^iy^j$.
-\end{itemize}
-\caption{ Algorithm for computation of pattern moment
-spectrum of order $ij$. \label{alg:spect}}
-\end{algorithm}
-
-This algorithm can
-readily be adapted to other granulometries, simply by computing the
-appropriate opening transform.
-
-\begin{figure}
-\begin{center}
-\begin{tabular}{c c}
-
-\end{tabular}
-\end{center}
-\caption{ \label{fig:tauspect}
-The opening transform using city-block metric: (a) opening transform of
-Fig. 1(c); (b) pattern spectrum; (c) pattern variance-$x$;
-(d) variance-$y$ spectra.}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=8in]{img2.jpg}
 \end{figure}
 
+Já a detecção de rosto apresentou uma complexidade maior na elaboração, tendo a necessidade de se aliar diversos algoritmos para realizar uma detecção estável. Ela não funciona de forma perfeita mas é suficiente como interface de controle para o jogo \textit{Sorvete Hoje?}. A figura a seguir ilustra o resultado dos algoritmos descritos:
 
-\renewcommand{\imsize}{0.3\columnwidth}
-\begin{figure}
-\begin{center}
-\end{center}
-\caption{ \label{fig:binspect} Pattern mean-$x$ (top) and variance-$x$
-(bottom) spectra: the three collumns show spectra for Fig. 1(a), (b) and (c)
-from left to right respectively.  Unlike the standard pattern spectra,
-these spatial pattern spectra can distinguish the three images.}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=8in]{img5.jpg}
 \end{figure}
+
+À esquerda está a imagem original da câmera com um retângulo vermelho no item 1 indicando onde está a face do jogador.
+O item 2 representa a face do jogador em escala de cinza antes de ser aplicado o Filtro de Sobel, e o item 3 representa o mesmo após a aplicação do filtro e da binarização.
+O item 4 representa uma máscara que indica o local onde espera-se que o usuário posicione o rosto para que seja feito o reconhecimento do mesmo.
 
 \section{Conclusão}
 
-Sitting on a corner all alone,
-staring from the bottom of his soul,
-watching the night come in from the window
-\\
-It'll all collapse tonight, the fullmoon is here again
-In sickness and in health, understanding so demanding
-It has no name, there's one for every season
-Makes him insane to know
-\\
- 
+Existem diversas formas de se trabalhar com visão computacional e mesmo limitando o escopo de trabalho para produzir apenas jogos, foi possível estudar e aplicar conceitos bastante diferentes entre si, como mudanças de espaço de cor e métodos de tratamento de imagem para reconhecimento de padrões. Apesar de não serem as técnicas mais sofisticadas, todos os algoritmos descritos atenderam as necessidades de cada jogo e assim foi possível criar uma experiência de usuário realmente inovadora tanto para um jogo clássico, como o \textit{Genius}, quanto para um jogo independente, como o caso do \textit{Sorvete Hoje?}. 
 %%% References
 
 %% Note: use of BibTeX als works!!
@@ -259,27 +194,6 @@ Makes him insane to know
 %\newblock Pattern recognition by affine moment invariants.
 %\newblock {\em Pattern Recognition}, 26:167--174, 1993.
 
-%\bibitem{Hu:62}
-%M.~K. Hu.
-%\newblock Visual pattern recognition by moment invariants.
-%\newblock {\em IRE Transactions on Information Theory}, IT-8:179--187, 1962.
-
-%\bibitem{maragos89:_patter}
-%P.~Maragos.
-%\newblock Pattern spectrum and multiscale shape representation.
-%\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 11:701--715, 1989.
-
-%\bibitem{Meijster:Wilkinson:PAMI}
-%A.~Meijster and M.~H.~F. Wilkinson.
-%\newblock A comparison of algorithms for connected set openings and closings.
-%\newblock {\em IEEE Trans. Patt. Anal. Mach. Intell.}, 24(4):484--494, 2002.
-
-%\bibitem{Nacken:thesis}
-%P.~F.~M. Nacken.
-%\newblock {\em Image Analysis Methods Based on Hierarchies of Graphs and
-%  Multi-Scale Mathematical Morphology}.
-%\newblock PhD thesis, University of Amsterdam, Amsterdam, The Netherlands,
-%  1994.
   
 %referencia do sobel
 \bibitem{Sobel1968}

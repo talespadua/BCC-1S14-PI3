@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.2.16)  11 JUN 2014 18:29
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.2.16)  11 JUN 2014 23:51
 entering extended mode
  %&-line parsing enabled.
 **poster.tex
@@ -598,87 +598,42 @@ LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <24.88> not available
 <img4.png, id=3, 417.56pt x 262.9825pt>
 File: img4.png Graphic file (type png)
  <use img4.png>
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
+
+ []
+
 <img2.jpg, id=4, 1283.79625pt x 481.8pt>
 File: img2.jpg Graphic file (type jpg)
  <use img2.jpg>
-Underfull \hbox (badness 10000) in paragraph at lines 127--128
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 137--138
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 176--177
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 186--187
-
- []
-
-
-LaTeX Warning: Citation `Nacken:thesis' on page 1 undefined on input line 188.
-
-LaTeX Font Info:    Try loading font information for OMS+phv on input line 194.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/omsphv.fd
-File: omsphv.fd 
-)
-LaTeX Font Info:    Font shape `OMS/phv/m/n' in size <24.88> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 194.
-
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 225--226
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 236--237
-
- []
-
+<img5.jpg, id=5, 1120.185pt x 476.78125pt>
+File: img5.jpg Graphic file (type jpg)
+ <use img5.jpg>
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 239.
-[1
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 206.
+ [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./Senac-logo.jpg> <./respe
-ct_cube.jpg> <./img4.png (PNG copy)> <./img2.jpg>]
-Underfull \hbox (badness 10000) in paragraph at lines 241--250
-
- []
-
-[2] (./poster.aux)
-
-LaTeX Warning: There were undefined references.
-
- ) 
+ct_cube.jpg> <./img4.png (PNG copy)> <./img2.jpg> <./img5.jpg>] (./poster.aux) 
+) 
 Here is how much of TeX's memory you used:
- 4637 strings out of 495061
- 61838 string characters out of 1182621
- 264050 words of memory out of 3000000
- 7715 multiletter control sequences out of 15000+50000
- 29476 words of font info for 70 fonts, out of 3000000 for 9000
+ 4620 strings out of 495061
+ 61553 string characters out of 1182621
+ 313050 words of memory out of 3000000
+ 7701 multiletter control sequences out of 15000+50000
+ 28961 words of font info for 68 fonts, out of 3000000 for 9000
  28 hyphenation exceptions out of 8191
- 33i,8n,58p,699b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
-ve/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/ty
-pe1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/
-amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/s
-hare/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texliv
-e/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw
-/helvetic/uhvro8a.pfb>
-Output written on poster.pdf (2 pages, 312365 bytes).
+ 33i,8n,58p,756b,378s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texliv
+e/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/typ
+e1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/c
+msy10.pfb></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/sh
+are/texmf-texlive/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive
+/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/
+helvetic/uhvro8a.pfb>
+Output written on poster.pdf (1 page, 381540 bytes).
 PDF statistics:
- 46 PDF objects out of 1000 (max. 8388607)
+ 44 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
