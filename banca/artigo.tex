@@ -36,7 +36,7 @@
 
    {\large \textbf{Gabriel Vieira Figueiredo Tomaz, Tales Carlos de Pádua, Vinicius de Carvalho.}}\\ [1cm]
   
-   {\large \textbf{vieira\_frifri@hotmail.com, talescpadua@gmail.com, carvalho.v@outlook.com.}}\\ [3cm]
+   {\large \textbf{viera\_frifri@hotmail.com, talescpadua@gmail.com, carvalho.v@outlook.com.}}\\ [3cm]
    
  
    {\Large Mini Games com Visão Computacional}\\[2cm]
@@ -56,69 +56,106 @@
 \end{titlepage}
 
 
-\break
 
-\begin{center}
-\textbf{\Large Resumo}
-\end{center}
+
+\section{Resumo}
+
 
 Conforme proposto na disciplina de Projeto Interativo III, a partir do estudo de algoritmos relacionados à visão computacional foram desenvolvidos pequenos jogos eletrônicos (mini games) em linguagem C usando a interface gráfica provida pela biblioteca Allegro 5 e uma interface de acesso à câmeras de vídeo provida pela biblioteca OpenCV, de modo que a visão computacional oferecesse não apenas uma opção de controle para o jogador, mas sim um diferencial na experiência e imersão do usuário ao vivenciar os mini games.\\
 
 Palavras-chave: jogos eletrônicos, visão computacional, Allegro 5.\\	
 
-\break
 
-\begin{center}
-\textbf{\Large Abstract}
-\end{center}
+
+\section{Abstract}
+
 
 As proposed by the Interactive Project III discipline, from the study of algorithms related to computer vision were originated little eletronic games (mini games) in C language utilizing a graphical interface provided by Allegro 5 library and a web cam access interface provided by OpenCV library, in order to make computer vision offer not only another controller option for the player, but a different experience and imersion for the user while playing the mini games.\\
 
 Keywords: eletronic games, computer vision, Allegro 5.\\
 
-\break
 
 
-\begin{center}
-\textbf{\Large Introdução}
-\end{center}
+\section {Introdução}
+
 
 A visão computacional é uma ciência e tecnologia voltada a lidar com a forma como as máquinas enxergam o mundo ao seu redor. As informações captadas por meio de sensores (como scanners, câmeras de vídeo, etc.) podem ser modeladas de diversas formas a fim de suprir necessidades que permeiam desde ramos diretamente ligados à tecnologia de informação (como robótica e áreas de automação tecnológica) até os que se utilizam da tecnologia para dadas outras necessidades, como ciências ambientais, medicina e outros.\\
 
 Com o objetivo de dar um passo inicial para dentro da visão computacional, este trabalho visa utilizar técnicas e algoritmos da mesma aliada à captação de imagens por câmera de vídeo para a produção de jogos simples, mas que mantenham a jogabilidade focada no poder da visão computacional, de modo que a experiência do jogador, ao invés de ser restringida pela interface proposta, se torne um diferencial por conta deste quesito.
 
-\break
-
-\begin{center}
-\textbf{\Large Revisão da Literatura}
-\end{center}
-
-\%\% TODO referenciar trabalhos utilizados como base para nossos jogos, etc.\\
-
-\break
 
 
-\begin{center}
-\textbf{\Large Desenvolvimento}
-\end{center}
+\section{Desenvolvimento}
 
-\begin{flushleft}
+
+
 \textbf{\large Ponto de Partida}
-\end{flushleft}
+
 
 Visto que este trabalho foi o primeiro contato formal com a visão computacional por parte do grupo, a estatégia adotada desenvolver os mini games foi uma via de mão-dupla passando por um \textit{brainstorm} de jogos existentes até quais algoritmos poderiam modelar uma interface de controle aceitável para os mesmos e fazendo o caminho de volta, onde eram estudados algoritmos existentes e se imaginava o que era possível, em termos de jogos, produzir a partir deles.
 
 A partir desta metodologia aliada à orientação e pesquisa, surgiram as tecnicas e algoritmos a seguir e a consequente combinação dos mesmos para elaboração dos jogos. 
+
+No início do trabalho foi introduzido uma biblioteca, baseada em OpenCV, que faz a interface de acesso à câmera de maneira bem restrita, possibilitando apenas que houvesse contato com os quadros capturados da câmera fornecidos por uma matriz tridimensional onde a primeira dimensão é a altura (em pixels) da imagem, a segunda representa a largura (também em pixels) e a terceira são os componentes vermelho (red), verde (green) e azul (blue), respectivamente, do espaço de cores RGB. Todos os valores da matriz representam um número entre 0 e 255 do padrão RGB.
+
+\begin{flushleft}
+\textbf{\large Jogo Genius}
+\end{flushleft}
+Esse jogo consiste em um remake do classico jogo genius com a jogabilidade alterada para ser possivel jogar com imagens capturadas pela web cam.
+
+A principal ideia do jogo se baseou no reconhecimento básico da cor vermelha, onde se era verificado se o componente R do pixel era maior que a soma dos outros dois G e B, conseguindo detectar com sucesso a cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz. Sendo necessário buscar algum outro metodo que nos pudesse fornecer uma melhor precisão nesse reconhecimento . Dentre alguns pesquisados , a solução adotada foi a conversão do espaço de cor RGB para o HSV pois com ele, definir um range e uma intensidade para a detecção de uma cor especifica fica muito mais preciso e intuitivo , devido suas caracteristicas unicas.
+
+
+\vspace{5.00mm}
+\centering
+
+\includegraphics[scale=0.8]{scale.png}
+\centering
+\\
+\textbf{\normalsize Range das cores em HSV}
+
+\begin{flushleft}
+\textbf{\large Espaço de cor HSV}
+\end{flushleft}
+\raggedright
+ O sistema de cores HSV formadas pelas componentes Hue (tonalidade), Saturation (Saturação) e Value (Valor). Esse sistema também é conhecido como HSB (Hue, Saturation e Brightness - Tonalidade, Saturação e Brilho, respectivamente). A primeira componente H define a cor propriamente dita , podendo varias de 0 a 360 graus , a ssegunda componente S defini a pureza ou intesidade da cor 
+contida na componente H e por ultimo a componente V defini o brilho da componente H.
+
+\vspace{5.00mm}
+\centering
+
+\includegraphics[scale=0.08]{hsv.png}
+\\
+\centering
+\textbf{\normalsize Espaço de cor HSV}
+\vspace{5.00mm}
+
+Como resultado da convesão para esse espaço de cor podemos ver um exemplo da detecção de azul :
+
+\vspace{5.00mm}
+\centering
+\includegraphics[scale=0.3]{img2.jpg}
+
+\vspace{5.00mm}
+
+
+\begin{flushleft}
+\textbf{\large Jogo: Sorvete Hoje?}
+\end{flushleft}
+\raggedright
+%%explicar ideia do jogo antes
+
+A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção de borda, que foi a base para a detecção de face. A detecção desta borda é feita por meio de um Filtro de Sobel, que será explicado mais adiante. Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem. A técnica utilizada é conhecida como algoritmo de Otsu.
+
+Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto que a manipulação de quadros da câmera pode ser um processo bastante custoso, o que gera uma experiência ruim para o usuário. Visando um modo de se otimizar este processo, antes de se aplicar o algoritmo do filtro foi utilizada uma conversão da imagem para escala de cinza.
+
+Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros.
 
 \begin{flushleft}
 \textbf{\large Distância Euclidiana}
 \end{flushleft}
 \%\% TODO: distância euclidiana
 
-\begin{flushleft}
-\textbf{\large Detecção de Cor}
-\end{flushleft}
-\%\% TODO: detecção de cor
 
 \begin{flushleft}
 \textbf{\large Escala de Cinza}
@@ -154,31 +191,23 @@ A partir desta metodologia aliada à orientação e pesquisa, surgiram as tecnic
 %\label{Rotulo}
 %\end{figure}
 
-\break
 
-\begin{center}
-\textbf{\Large Resultados}
-\end{center}
 
-\%\% TODO o que conseguimos produzir com os algoritmos citados no desenvolvimento, e descrever por que funcionou fazer os jogos desta forma. 
+\section{ Resultados}
 
-\break
+Os resultados obtidos com o desenvolvimente desse trabalho nos proporcionaram um algoritmo rustico de detecção de padroes da face e outro efeciente na detecção de cores , mostrando que com a combinação de alguns algoritmos simples de uma maneira inteligente é possivel chegar em grandes resultados. Resultados esses que podemos ver nos jogos criados que conseguem exercer seus objetivos com eficiencia e precisão.
 
-\begin{center}
-\textbf{\Large Considerações Finais}
-\end{center}
+Ao longo desse trabalho, foi possível obtermos uma visão de alguns dos problemas no campo da visão computacional e da geometria computacional, casos em que demandavam uma maior atenção no desenvolvimento de seus algorítmos, além de cuidado na performance em que algoritmos destes ramos demandam.
 
-\%\% TODO conclusões sobre o nosso trabalho.\\
 
-Ex: Flappy Bino: estudamos X algoritmo e Y técnica mas não deu certo por motivo A.\\
+\section{Conclusão}
 
-Jogo do Mexe-Mexe: com o X algoritmo do Flappy Bino conseguimos fazer o jogo com sucesso por motivo B.
 
-\break
+Existem diversas formas de se trabalhar com visão computacional e mesmo limitando o escopo de trabalho para produzir apenas jogos, foi possível estudar e aplicar conceitos bastante diferentes entre si, como mudanças de espaço de cor e métodos de tratamento de imagem para reconhecimento de padrões. Apesar de não serem as técnicas mais sofisticadas, todos os algoritmos descritos atenderam as necessidades de cada jogo e assim foi possível criar uma experiência de usuário realmente inovadora tanto para um jogo clássico, como o \textit{Genius}, quanto para um jogo independente, como o caso do \textit{Sorvete Hoje?}. 
 
-\begin{center}
-\textbf{\Large Referências Bibliográficas}
-\end{center}
+
+\section{ Referências Bibliográficas}
+
 
 \%\% TODO formatar referências em ABNT \\
 - Livros do nosso Google Drive sobre Visão Computacional \\
