@@ -89,7 +89,7 @@ Com o objetivo de dar um passo inicial para dentro da visão computacional, este
 
 
 
-\textbf{\large Ponto de Partida}
+\subsubsection{Ponto de Partida}
 
 
 Visto que este trabalho foi o primeiro contato formal com a visão computacional por parte do grupo, a estatégia adotada desenvolver os mini games foi uma via de mão-dupla passando por um \textit{brainstorm} de jogos existentes até quais algoritmos poderiam modelar uma interface de controle aceitável para os mesmos e fazendo o caminho de volta, onde eram estudados algoritmos existentes e se imaginava o que era possível, em termos de jogos, produzir a partir deles.
@@ -98,9 +98,9 @@ A partir desta metodologia aliada à orientação e pesquisa, surgiram as tecnic
 
 No início do trabalho foi introduzido uma biblioteca, baseada em OpenCV, que faz a interface de acesso à câmera de maneira bem restrita, possibilitando apenas que houvesse contato com os quadros capturados da câmera fornecidos por uma matriz tridimensional onde a primeira dimensão é a altura (em pixels) da imagem, a segunda representa a largura (também em pixels) e a terceira são os componentes vermelho (red), verde (green) e azul (blue), respectivamente, do espaço de cores RGB. Todos os valores da matriz representam um número entre 0 e 255 do padrão RGB.
 
-\begin{flushleft}
-\textbf{\large Jogo Genius}
-\end{flushleft}
+
+\subsubsection{ Jogo Genius}
+
 Esse jogo consiste em um remake do classico jogo genius com a jogabilidade alterada para ser possivel jogar com imagens capturadas pela web cam.
 
 A principal ideia do jogo se baseou no reconhecimento básico da cor vermelha, onde se era verificado se o componente R do pixel era maior que a soma dos outros dois G e B, conseguindo detectar com sucesso a cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz. Sendo necessário buscar algum outro metodo que nos pudesse fornecer uma melhor precisão nesse reconhecimento . Dentre alguns pesquisados , a solução adotada foi a conversão do espaço de cor RGB para o HSV pois com ele, definir um range e uma intensidade para a detecção de uma cor especifica fica muito mais preciso e intuitivo , devido suas caracteristicas unicas.
@@ -139,11 +139,11 @@ Como resultado da convesão para esse espaço de cor podemos ver um exemplo da d
 \vspace{5.00mm}
 
 
-\begin{flushleft}
-\textbf{\large Jogo: Sorvete Hoje?}
-\end{flushleft}
+
+\subsubsection{Jogo: Sorvete Hoje?}
+
 \raggedright
-%%explicar ideia do jogo antes
+%%Explicar como vai ser esse joguinho maneiro
 
 A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção de borda, que foi a base para a detecção de face. A detecção desta borda é feita por meio de um Filtro de Sobel, que será explicado mais adiante. Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem. A técnica utilizada é conhecida como algoritmo de Otsu.
 
@@ -151,26 +151,56 @@ Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto qu
 
 Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros.
 
-\begin{flushleft}
-\textbf{\large Distância Euclidiana}
-\end{flushleft}
-\%\% TODO: distância euclidiana
+\subsubsection{Escala de Cinza}
 
+O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar as componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. Isto faz com que a imagem se torne descolorida com tons de cinza que são aproximações das cores da imagem original. Como as três componentes da terceira dimensão da matriz serão iguais, basta aplicar os algoritmos seguintes para apenas uma delas e replicar os resultados às demais, diminuindo assim a quantidade de processamento.
 
-\begin{flushleft}
-\textbf{\large Escala de Cinza}
-\end{flushleft}
-\%\% TODO: grey scale
+\subsubsection{Filtro de Sobel}
+
+O Filtro de Sobel calcula o gradiente da intensidade da imagem em cada ponto, dando a direção da maior variação de claro para escuro e a quantidade de variação nessa direção por meio de duas matrizes quadradas de ordem 3, que são convoluídas com a imagem original para calcular aproximações das derivadas. Uma das matrizes representa a variação horizontal $Gx$ e a outra é a vertical $Gy$. \\
+
+\begin{center}{Máscara de Sobel 3x3}
+$$
+Gx=\left[\begin{array}{rrr}
+-1&0&+1\\
+-2&0&+2 \\
+-1&0&+1
+\end{array}\right]\quad
+Gy=\left[\begin{array}{ccc}
+-1&-2&-1\\
+0& 0& 0 \\
++1&+2&+1
+\end{array}\right]
+$$
+\end{center}
+
+E a partir disto, calcula-se a magnitude do gradiente:
+
+$$
+|G|=\sqrt{Gx^2 + Gy^2}
+$$	
+
+A variação de claro para escuro indica a presença de uma borda e com este gradiente aplicado nos canais RGB tem-se uma imagem composta apenas pelas bordas dos objetos que a compõem. Como a imagem utilizada está em escala de cinza, o resultado é uma imagem composta de bordas claras (próximas ao branco) com massas escuras (que tendem ao preto).
+
+\subsubsection{Binarização da imagem}
+
+Apesar dos diversos algoritmos para binarização de imagem, como os quadros que estão sendo trabalhados já estão bastante simplificados neste ponto, uma implementação baseada no algoritmo de Otsu é suficiente para atingir o objetivo de itensificar as bordas obtidas no Filtro de Sobel.
+
+A ideia geral do método de Otsu é ter um valor limite onde se atribui a cor branca para os pixels que possuírem o canal RGB acima deste limite e preto para os que estiverem abaixo do mesmo. Essa limítrofe em geral é calculada a partir de fórmulas que utilizam a imagem para definir qual seria o valor mais adequado, entretanto, para a imagem com bordas, pode-se definir um valor constante e simplificar todo o processo.
+
+\subsubsection{Remoção de fundo com Distância Euclidiana}
+
+Quando se quer ignorar o fundo de um determinado cenário, pode-se aplicar a distância entre dois pontos definida por Euclides como $dist(p, q) = \sqrt{p^2 - q^2}$ onde p e q são pontos com cordenadas $p_{1}, p_{2}, ... p_{n}$ e $q_{1}, q_{2}, ... q_{n}$. Capturando um quadro da câmera onde não há nada além do fundo do cenário, basta iterar entre todos os pontos (pixels) p deste quadro e os pontos q do quadro que se deseja remover o fundo. O resultado é uma imagem que exclui, de maneira simples, os elementos do cenário.
+
+\subsubsection{Detecção de rosto}
+O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem definidas composta apenas pelo que não faz parte do cenário capturado pela câmera, ou seja, na grande parte dos casos haverá apenas a borda detalhada do jogador. O usuário é então instruído a posicionar seu rosto em um local específico onde é feito o reconhecimento facial, baseando-se no fato de que são esperados muitos pixels brancos para os olhos e a boca, mas poucos para a face visto que não há muitas bordas na mesma.
 
 \begin{flushleft}
 \textbf{\large Binarização}
 \end{flushleft}
 \%\% TODO: binarização
 
-\begin{flushleft}
-\textbf{\large Filtro Sobel}
-\end{flushleft}
-\%\% TODO: sobel operator para detecção de bordas
+
 
 \begin{flushleft}
 \textbf{\large Filtro Gaussiano}
@@ -196,8 +226,6 @@ Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi ag
 \section{ Resultados}
 
 Os resultados obtidos com o desenvolvimente desse trabalho nos proporcionaram um algoritmo rustico de detecção de padroes da face e outro efeciente na detecção de cores , mostrando que com a combinação de alguns algoritmos simples de uma maneira inteligente é possivel chegar em grandes resultados. Resultados esses que podemos ver nos jogos criados que conseguem exercer seus objetivos com eficiencia e precisão.
-
-Ao longo desse trabalho, foi possível obtermos uma visão de alguns dos problemas no campo da visão computacional e da geometria computacional, casos em que demandavam uma maior atenção no desenvolvimento de seus algorítmos, além de cuidado na performance em que algoritmos destes ramos demandam.
 
 
 \section{Conclusão}
