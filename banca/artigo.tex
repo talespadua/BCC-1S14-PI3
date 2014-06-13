@@ -3,6 +3,7 @@
 \usepackage[brazil]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
+\usepackage{indentfirst}
 
 \begin{document}
 
@@ -44,7 +45,7 @@
    \hspace{.45\textwidth} 
    \begin{minipage}{.5\textwidth}
    \large "Pequenos jogos eletrônicos utilizando conhecimentos de Visão Computacional apresentados para a conclusão da disciplina Projeto Interativo III, do bacharelado em Ciência da Computação, Centro Universitário Senac."\\[0.5cm]
-			Sob orientação do Prof.º: Marcelo Hashimoto
+      Sob orientação do Prof.º: Marcelo Hashimoto
   \end{minipage}
   \vfill
 
@@ -63,7 +64,7 @@
 
 Conforme proposto na disciplina de Projeto Interativo III, a partir do estudo de algoritmos relacionados à visão computacional foram desenvolvidos pequenos jogos eletrônicos (mini games) em linguagem C usando a interface gráfica provida pela biblioteca Allegro 5 e uma interface de acesso à câmeras de vídeo provida pela biblioteca OpenCV, de modo que a visão computacional oferecesse não apenas uma opção de controle para o jogador, mas sim um diferencial na experiência e imersão do usuário ao vivenciar os mini games.\\
 
-Palavras-chave: jogos eletrônicos, visão computacional, Allegro 5.\\	
+Palavras-chave: jogos eletrônicos, visão computacional, Allegro 5.\\  
 
 
 
@@ -101,59 +102,57 @@ No início do trabalho foi introduzido uma biblioteca, baseada em OpenCV, que fa
 
 \subsubsection{ Jogo Genius}
 
-Esse jogo consiste em um remake do classico jogo genius com a jogabilidade alterada para ser possivel jogar com imagens capturadas pela web cam.
 
-A principal ideia do jogo se baseou no reconhecimento básico da cor vermelha, onde se era verificado se o componente R do pixel era maior que a soma dos outros dois G e B, conseguindo detectar com sucesso a cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz. Sendo necessário buscar algum outro metodo que nos pudesse fornecer uma melhor precisão nesse reconhecimento . Dentre alguns pesquisados , a solução adotada foi a conversão do espaço de cor RGB para o HSV pois com ele, definir um range e uma intensidade para a detecção de uma cor especifica fica muito mais preciso e intuitivo , devido suas caracteristicas unicas.
+Esse jogo consiste em um remake do classico jogo genius com a jogabilidade alterada para ser possivel jogar com imagens coloridas capturadas pela web cam.
+
+A principal ideia do jogo se baseou inicialmente no reconhecimento básico da cor vermelha, onde se era verificado se o componente R do pixel era maior que a soma dos outros dois G e B, conseguindo detectar com sucesso a cor desejada. Apesar de funcionar relativamente bem para detecção de vermelho, outras cores apresentavam uma resistência maior ao método devido a pequenas instabilidades e mudanças de luz. Sendo necessário buscar algum outro método que pudesse fornecer uma melhor precisão nesse reconhecimento. Dentre alguns pesquisados, a solução adotada foi a conversão do espaço de cor RGB para o HSV, pois ele permite definir um range e uma intensidade para a detecção de uma cor especifica, ficando assim muito mais preciso devido suas caracteristicas únicas.
 
 
 \vspace{5.00mm}
-\centering
 
-\includegraphics[scale=0.8]{scale.png}
-\centering
-\\
+\begin{center}
+\includegraphics[scale=0.8]{scale.png} \\
 \textbf{\normalsize Range das cores em HSV}
+\end{center}
+
 
 \begin{flushleft}
 \textbf{\large Espaço de cor HSV}
 \end{flushleft}
-\raggedright
- O sistema de cores HSV formadas pelas componentes Hue (tonalidade), Saturation (Saturação) e Value (Valor). Esse sistema também é conhecido como HSB (Hue, Saturation e Brightness - Tonalidade, Saturação e Brilho, respectivamente). A primeira componente H define a cor propriamente dita , podendo varias de 0 a 360 graus , a ssegunda componente S defini a pureza ou intesidade da cor 
-contida na componente H e por ultimo a componente V defini o brilho da componente H.
+%%\raggedright
+
+
+O sistema de cores HSV formadas pelas componentes Hue (tonalidade), Saturation (Saturação) e Value (Valor). Esse sistema também é conhecido como HSB (Hue, Saturation e Brightness - Tonalidade, Saturação e Brilho, respectivamente). A primeira componente H define a cor propriamente dita, podendo variar de 0 a 360 graus, a segunda componente S define a pureza ou intesidade da cor contida na componente H e por último a componente V defini o brilho da componente H.
 
 \vspace{5.00mm}
-\centering
 
-\includegraphics[scale=0.08]{hsv.png}
-\\
-\centering
+\begin{center}
+\includegraphics[scale=0.08]{hsv.png} \\
 \textbf{\normalsize Espaço de cor HSV}
-\vspace{5.00mm}
-
-Como resultado da convesão para esse espaço de cor podemos ver um exemplo da detecção de azul :
-
-\vspace{5.00mm}
-\centering
-\includegraphics[scale=0.3]{img2.jpg}
-
+\end{center}
 \vspace{5.00mm}
 
 
-
+\begin{flushleft}
 \subsubsection{Jogo: Sorvete Hoje?}
+\end{flushleft}
 
-\raggedright
-%%Explicar como vai ser esse joguinho maneiro
+%%\raggedright
 
 A ideia deste jogo surgiu a partir do estudo de certos algoritmos que aliados permitem uma detecção de borda, que foi a base para a detecção de face. A detecção desta borda é feita por meio de um Filtro de Sobel, que será explicado mais adiante. Aliado ao filtro, para que houvessem bordas mais consistentes, foi utilizado um algoritmo de binarização de imagem. A técnica utilizada é conhecida como algoritmo de Otsu.
 
 Apenas o filtro, porém, não era suficiente para atingir os objetivos, visto que a manipulação de quadros da câmera pode ser um processo bastante custoso, o que gera uma experiência ruim para o usuário. Visando um modo de se otimizar este processo, antes de se aplicar o algoritmo do filtro foi utilizada uma conversão da imagem para escala de cinza.
 
-Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros.
+Por fim, para evitar impecilhos com a imagem de fundo da câmera, também foi agregado um algoritmo de remoção de fundo simples utilizando a fórmula matemática da Distância Euclidiana nos pixels dos quadros. \\
 
 \subsubsection{Escala de Cinza}
 
-O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar as componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. Isto faz com que a imagem se torne descolorida com tons de cinza que são aproximações das cores da imagem original. Como as três componentes da terceira dimensão da matriz serão iguais, basta aplicar os algoritmos seguintes para apenas uma delas e replicar os resultados às demais, diminuindo assim a quantidade de processamento.
+O algoritmo de escala de cinza utilizado é bastante simples de ser aplicado no espaço de cor RGB, pois todos as cores obtidas ao se igualar as componentes R, G e B são tons de cinza. A fim de simplificar a quantidade de pixels que seriam processados, basta passar um algoritmo que soma as três componentes RGB de cada pixel, divide o valor por três e aplica o mesmo para as três componentes. Isto faz com que a imagem se torne descolorida com tons de cinza que são aproximações das cores da imagem original. Como as três componentes da terceira dimensão da matriz serão iguais, basta aplicar os algoritmos seguintes para apenas uma delas e replicar os resultados às demais, diminuindo assim a quantidade de processamento. \\
+
+Fórmula para obter a escala de cinza:
+$greyscale = \frac{R + G + B}{3}$ \\
+
+Com cada componente R, G e B recebendo o valor de \textit{greyscale}.
 
 \subsubsection{Filtro de Sobel}
 
@@ -178,7 +177,7 @@ E a partir disto, calcula-se a magnitude do gradiente:
 
 $$
 |G|=\sqrt{Gx^2 + Gy^2}
-$$	
+$$  
 
 A variação de claro para escuro indica a presença de uma borda e com este gradiente aplicado nos canais RGB tem-se uma imagem composta apenas pelas bordas dos objetos que a compõem. Como a imagem utilizada está em escala de cinza, o resultado é uma imagem composta de bordas claras (próximas ao branco) com massas escuras (que tendem ao preto).
 
@@ -193,19 +192,8 @@ A ideia geral do método de Otsu é ter um valor limite onde se atribui a cor br
 Quando se quer ignorar o fundo de um determinado cenário, pode-se aplicar a distância entre dois pontos definida por Euclides como $dist(p, q) = \sqrt{p^2 - q^2}$ onde p e q são pontos com cordenadas $p_{1}, p_{2}, ... p_{n}$ e $q_{1}, q_{2}, ... q_{n}$. Capturando um quadro da câmera onde não há nada além do fundo do cenário, basta iterar entre todos os pontos (pixels) p deste quadro e os pontos q do quadro que se deseja remover o fundo. O resultado é uma imagem que exclui, de maneira simples, os elementos do cenário.
 
 \subsubsection{Detecção de rosto}
+
 O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem definidas composta apenas pelo que não faz parte do cenário capturado pela câmera, ou seja, na grande parte dos casos haverá apenas a borda detalhada do jogador. O usuário é então instruído a posicionar seu rosto em um local específico onde é feito o reconhecimento facial, baseando-se no fato de que são esperados muitos pixels brancos para os olhos e a boca, mas poucos para a face visto que não há muitas bordas na mesma.
-
-\begin{flushleft}
-\textbf{\large Binarização}
-\end{flushleft}
-\%\% TODO: binarização
-
-
-
-\begin{flushleft}
-\textbf{\large Filtro Gaussiano}
-\end{flushleft}
-\%\% TODO: distância euclidiana
 
 %\begin{figure}[!htb]
 %\centering
@@ -221,12 +209,29 @@ O resultado de todos estes algoritmos alinhados é uma imagem de bordas bem defi
 %\label{Rotulo}
 %\end{figure}
 
+\section{Resultados}
 
+Os resultados obtidos com o desenvolvimente desse trabalho proporcionaram um algoritmo rústico de detecção de padroes da face e outro efeciente na detecção de cores, mostrando que com a combinação de alguns algoritmos simples de uma maneira inteligente é possivel chegar em grandes resultados. Resultados esses que podemos ver nos jogos criados que conseguem exercer seus objetivos com eficiencia e precisão.
 
-\section{ Resultados}
+Como resultado da convesão de espaço de cor pode-se ver um exemplo da detecção de azul:
 
-Os resultados obtidos com o desenvolvimente desse trabalho nos proporcionaram um algoritmo rustico de detecção de padroes da face e outro efeciente na detecção de cores , mostrando que com a combinação de alguns algoritmos simples de uma maneira inteligente é possivel chegar em grandes resultados. Resultados esses que podemos ver nos jogos criados que conseguem exercer seus objetivos com eficiencia e precisão.
+\vspace{5.00mm}
+\begin{center}
+\includegraphics[scale=0.3]{img2.jpg}
+\end{center}
+\vspace{5.00mm}
 
+E para a detecção de rosto, pode-se observar os resultados a seguir:
+
+\vspace{5.00mm}
+\begin{center}
+\includegraphics[scale=0.3]{img5.jpg}
+\end{center}
+\vspace{5.00mm}
+
+À esquerda está a imagem original da câmera com um retângulo vermelho no item 1 indicando onde está a face do jogador.
+O item 2 representa a face do jogador em escala de cinza antes de ser aplicado o Filtro de Sobel, e o item 3 representa o mesmo após a aplicação do filtro e da binarização.
+O item 4 representa uma máscara que indica o local onde espera-se que o usuário posicione o rosto para que seja feito o reconhecimento do mesmo.
 
 \section{Conclusão}
 
@@ -237,13 +242,32 @@ Existem diversas formas de se trabalhar com visão computacional e mesmo limitan
 \section{ Referências Bibliográficas}
 
 
-\%\% TODO formatar referências em ABNT \\
-- Livros do nosso Google Drive sobre Visão Computacional \\
-- Livro de Álgebra Linear da aula da Dani com a distância euclidiana \\
-- Tutoriais do OpenCV \\
 
-%% um pouco de introdução à computer vision eu tirei daqui:
-%% http://en.wikipedia.org/wiki/Computer_vision
+\bibliographystyle{plain}
+\begin{thebibliography}{2}
+
+%link da biblioteca para aquisicao da camera
+\bibitem{hashimoto}HASHIMOTO, Marcelo - Biblioteca fornecida para este projeto.
+disponível em \url{https://github.com/senacbcc/Hashimoto-Camera-lib}.
+
+%referencia do metodo de otsu    
+\bibitem{Limiar}MATTEUCCI, Matteo. 
+\newblock{Lecture 4 (2000), disponivel em}: 
+\url{http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/MORSE/threshold.pdf}. 
+
+%minha principal referencia em processamento de imagem
+\bibitem{procecimagens}
+{MARQUES FILHO, Ogê; VIEIRA NETO, Hugo.}
+\newblock {Processamento Digital de Imagens, Rio de Janeiro, Brasport, 1999.}
+
+%referencia do sobel
+\bibitem{Sobel1968}
+{SOBEL, Irvin}
+\newblock A 3x3 isotropic gradient operator for image processing.
+\newblock Never published but presented at a talk at the Stanford Artificial
+  Project, 1968.
+
+\end{thebibliography}
 
 \break
 
