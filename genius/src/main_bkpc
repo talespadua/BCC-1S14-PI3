@@ -1,0 +1,455 @@
+#include "init.h"
+
+
+
+void erro(char *mensagem) {
+	fputs(mensagem, stderr);
+
+	exit(EXIT_FAILURE);
+}
+
+
+void escreverCor(int x)
+{
+	switch (x)
+	{
+		case 1:
+			printf("verde\n");
+			destacarVerde();
+		break;
+
+		case 2:
+		printf("vermelho\n");
+		destacarVermelho();
+		break;
+
+		case 3 :
+			printf("azull\n");
+			destacarAzul();
+		break;
+
+		case 4 :
+		printf("amarelo\n");
+		destacarAmarelo();
+		break;
+
+	}
+}
+
+void coresOriginais()
+{
+	cor_verde = al_map_rgb_f(0, 0.35, 0);
+    cor_vermelha = al_map_rgb_f(0.35, 0, 0);
+    cor_azul = al_map_rgb_f(0, 0, 0.35);
+    cor_amarelo = al_map_rgb_f(0.35, 0.35, 0);
+}
+
+
+void destacarAmarelo()
+{
+	cor_amarelo = al_map_rgb_f(1, 1, 0);
+}
+
+void destacarAzul()
+{
+	cor_azul = al_map_rgb_f(0, 0, 1);
+}
+
+void destacarVermelho()
+{
+	cor_vermelha = al_map_rgb_f(1, 0, 0);
+}
+
+void destacarVerde()
+{
+	cor_verde = al_map_rgb_f(0, 1, 0);
+}
+
+void desenharQuadrado()
+{
+	al_draw_rectangle(100, 100, 100, 100, cor_verde, 1);
+}
+
+
+int RandomInteger( int low, int high)
+{
+    int k;
+    double d;
+    d = (double) rand( ) / ((double) RAND_MAX + 1);
+    k = d * (high - low + 1);
+    return low + k;
+}
+
+void Randomize( void)
+{
+    srand( time( NULL));
+}
+
+float maximum(float x, float y, float z) {
+	float max = x; /* assume x is the largest */
+
+	if (y > max) { /* if y is larger than max, assign y to max */
+		max = y;
+	} /* end if */
+
+	if (z > max) { /* if z is larger than max, assign z to max */
+		max = z;
+	} /* end if */
+
+	return max; /* max is the largest value */
+} 
+
+float minimum(float x, float y, float z) {
+	float max = x; /* assume x is the largest */
+
+	if (y < max) { /* if y is larger than max, assign y to max */
+		max = y;
+	} /* end if */
+
+	if (z < max) { /* if z is larger than max, assign z to max */
+		max = z;
+	} /* end if */
+
+	return max; /* max is the largest value */
+} 
+void RGBtoHSV(int r1 , int g1 , int b1 , float *h , float *s , float *v) 
+{ 
+	float min, max, delta; 
+	float r,g,b;
+
+	r = (float)r1 / 255;
+	g = (float)g1 / 255;
+	b = (float)b1 / 255;
+
+	max = maximum(r , g ,b);
+	min = minimum(r ,g ,b);
+
+	
+	if (max == r && g >= b)
+	{
+		*h = 60 * ((g - b) / (max - min)) + 0 ; 
+	}
+
+	if (max == r && g < b)
+	{
+		*h = 60 * ((g - b) / (max - min)) + 360; 
+	}
+
+	if (max == g)
+	{
+		*h = 60 * ((b - r) / (max - min)) + 120; 
+	}
+
+	if (max == b)
+	{
+		*h = 60 * ((r - g) / (max - min)) + 240; 
+	}
+
+	
+	*s = ((max - min ) / max);
+	*v = max;
+	
+}
+
+
+int main()
+{
+	//INICIALIZAR ALLEGRO
+	inicializar();
+
+	for (int i = 0; i < 23; ++i)
+	{
+		jogadas[i] = RandomInteger(1 , 4);
+	}
+
+
+	al_start_timer(timer);
+
+	int desenhar = 0;
+	int terminar = 0;
+	int countSegundo = 1;
+
+	int sair = 1;
+
+	int countAzul = 1;
+	int countAmarelo = 1;
+	int countVermelho = 1;
+	int countVerde = 1;
+
+	int contadorBacana = 1;
+
+	Randomize();
+
+	int atual = RandomInteger(1 , 4);
+	int achou = 0;
+	escreverCor(atual);
+	
+
+	//GAME LOOP
+	while(sair)
+	{
+		//RECEBER EVENTOS
+
+
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(fila_eventos, &ev);
+
+		switch(ev.type) {
+			case ALLEGRO_EVENT_TIMER:
+			desenhar = 1;
+			countSegundo++;
+			break;
+			case ALLEGRO_EVENT_DISPLAY_CLOSE:
+			terminar = 1;
+			break;
+			default:
+			printf("evento desconhecido\n");
+		}
+
+		if(terminar)
+			break;
+
+		if(desenhar && al_is_event_queue_empty(fila_eventos)) 
+		{
+
+			desenhar = 0;
+			camera_atualiza(cam);
+			al_draw_filled_rectangle(largura, 0, largura + largura / 2, 0 + altura / 2, cor_azul);
+			al_draw_filled_rectangle(largura  + largura / 2 , 0, largura + largura , 0 + altura / 2, cor_vermelha);
+
+			al_draw_filled_rectangle(largura, altura / 2 , largura + largura / 2, 0 + altura, cor_amarelo);
+			al_draw_filled_rectangle(largura  + largura / 2 , altura / 2, largura + largura , 0 + altura, cor_verde);
+
+        
+      /**********/
+
+			float cy = 0;
+			float cx = 0;
+			int cn = 0;
+			float h;
+			float s;
+			float v;
+
+
+			int verde = 0;
+			int vermelho = 0;
+			int azul = 0;
+			int amarelo = 0;
+			
+			for(int y = 0; y < altura; y++)
+				for(int x = 0; x < largura; x++) {
+					int r = cam->quadro[y][x][0];
+					int g = cam->quadro[y][x][1];
+					int b = cam->quadro[y][x][2];
+
+					
+
+					int r1 = (int)r;
+					int g1 = (int)g;
+					int b1 = (int)b;
+
+					RGBtoHSV(r1 ,g1 ,b1 , &h , &s , &v);
+
+					matriz[y][x][0] = 0;
+						matriz[y][x][1] = 0;
+						matriz[y][x][2] = 0;
+
+					//vermelho legal
+					if( (h >= 350 || h <= 10) && (s > 0.55) && (v > 0.7)   ) 
+					{
+						
+						vermelho++;
+						matriz[y][x][0] = 255;
+						matriz[y][x][1] = 0;
+						matriz[y][x][2] = 0;
+					}
+						
+
+					//verde maneiro
+					if( (h >= 64 && h <= 150) && (s > 0.15) && (v > 0.15 )   ) 
+					{
+						
+						verde++;
+						matriz[y][x][0] = 0;
+						matriz[y][x][1] = 255;
+						matriz[y][x][2] = 0;
+					}
+						
+
+					 if( (h >= 180 && h <= 255) && (s > 0.15) && (v > 0.15 )   ) 
+					 {
+					 	azul++;
+					 	matriz[y][x][0] = 0;
+						matriz[y][x][1] = 0;
+						matriz[y][x][2] = 255;
+					 }
+					 	
+
+					 //if(  (h >= 20 && h <= 45)   && (s > 0.65) && (v > 0.6 ) ) 
+					 if(  (h >= 45 && h <= 65)   && (s > 0.3) && (v > 0.4 ) ) 
+					 {
+					 	amarelo++;
+					 	matriz[y][x][0] = 255;
+						matriz[y][x][1] = 255;
+						matriz[y][x][2] = 0;
+					 
+					 }
+					 
+				}
+
+				camera_copia(cam, cam->quadro, esquerda);
+
+				int tam = 5000;
+				
+				if (verde > tam || vermelho > tam || azul > tam || amarelo > tam )
+				{
+			
+					if (verde > tam)
+					{
+						countVerde++;
+						//printf("verde\n");
+					}
+
+					if (azul > tam)
+					{
+						countAzul++;
+						//printf("azul\n");
+					}
+
+					if (vermelho >tam)
+					{
+						countVermelho++;
+						//printf("vermelho\n");
+					}
+
+					if (amarelo >tam)
+					{
+						countAmarelo++;
+						//printf("amarelo\n");
+					}
+
+					
+				}
+				else
+				{
+					countAzul = 1;
+					countAmarelo = 1;
+					countVermelho = 1;
+					countVerde = 1;
+					//printf("nada\n");
+				}
+				
+				
+				//camera_copia(cam, matriz, direita);
+				al_flip_display();
+			}
+
+			int qnt = 30;
+
+			if (countVerde == qnt)
+			{
+
+				coresOriginais();
+				printf("achei verde\n");
+				countAzul = 1;
+				countAmarelo = 1;
+				countVermelho = 1;
+				countVerde = 1;
+				if(atual == VERDE)
+				{
+					printf("acertou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);
+				}
+				else
+				{
+					printf("errou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);	
+				}
+
+				
+			}
+
+			if (countVermelho == qnt)
+			{
+				coresOriginais();
+
+				printf("achei vermelho\n");
+				countAzul = 1;
+				countAmarelo = 1;
+				countVermelho = 1;
+				countVerde = 1;
+				if(atual == VERMELHO)
+				{
+					printf("acertou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);
+				}
+				else
+				{
+					printf("errou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);	
+				}
+
+				
+			}
+
+			if (countAzul == qnt)
+			{
+				coresOriginais();
+				printf("achei azul\n");
+				countAzul = 1;
+				countAmarelo = 1;
+				countVermelho = 1;
+				countVerde = 1;
+				if(atual == AZUL)
+				{
+					printf("acertou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);
+				}
+				else
+				{
+					printf("errou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);	
+				}
+
+				
+			}
+
+			if (countAmarelo == qnt)
+			{
+
+				coresOriginais();
+				printf("achei amarelo\n");
+				countAzul = 1;
+				countAmarelo = 1;
+				countVermelho = 1;
+				countVerde = 1;
+				if(atual == AMARELO)
+				{
+					printf("acertou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);
+				}
+				else
+				{
+					printf("errou\n");
+					atual = RandomInteger(1 , 4);
+					escreverCor(atual);	
+				}
+
+				
+			}
+
+		}
+
+	//SAIR DO JOGO 
+		al_destroy_display(janela);
+		al_destroy_event_queue(fila_eventos);
+
+		return 0;
+	}
